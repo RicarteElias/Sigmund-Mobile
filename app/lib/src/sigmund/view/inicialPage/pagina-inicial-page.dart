@@ -1,4 +1,4 @@
-import 'package:app/src/sigmund/view/splash/pagina-inicial-state.dart';
+import 'package:app/src/sigmund/view/inicialPage//pagina-inicial-state.dart';
 import 'package:flutter/cupertino.dart';
 
 
