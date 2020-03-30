@@ -3,8 +3,11 @@ import 'package:app/src/sigmund/view/quiz/quiz-page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-class QuizState extends State<QuizPage>{
+class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin{
   final GlobalKey<AnimatedListState> _listKey = GlobalKey();
+  Animation animation;
+  Animation animationController;
+
 
   List<String> _respostas = [
     "Resposta ",
@@ -13,6 +16,22 @@ class QuizState extends State<QuizPage>{
     "Resposta ",
 
   ];
+
+  @override
+  void initState(){
+    super.initState();
+
+    animationController = AnimationController(duration: Duration(seconds: 2),vsync: this);
+    animation = Tween(begin: -1.0, end:  0.0).animate(CurvedAnimation(
+      parent: animationController,curve: Curves.fastOutSlowIn
+    ));
+
+  }
+
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -44,7 +63,7 @@ class QuizState extends State<QuizPage>{
       ],
       body: AnimatedList(
         key: _listKey,
-        initialItemCount: _respostas.length,
+        initialItemCount: 0,
         itemBuilder: (context, index, animation) => _buildItem(context, _respostas[index], animation),
       ),
     );
@@ -70,13 +89,14 @@ class QuizState extends State<QuizPage>{
     );
   }
 
-  void _novaPergunta() {
-    _removeAllItems();
+ Future <void> _novaPergunta() async {
+    await _removeAllItems();
     _adicionarRespostas();
 
   }
 
   void _adicionarRespostas(){
+    
     final int itemCount = _respostas.length;
     for (var i = 0; i < 4; i++){
       _respostas.insert(0, "Resposta " + i.toString() );
@@ -85,14 +105,14 @@ class QuizState extends State<QuizPage>{
 
   }
 
-void _removeAllItems() {
+Future <void> _removeAllItems() async {
     final int itemCount = _respostas.length;
 
     for (var i = 0; i < itemCount; i++) {
       String itemToRemove = _respostas[0];
       _listKey.currentState.removeItem(0,
             (BuildContext context, Animation<double> animation) => _buildItem(context, itemToRemove, animation),
-        duration: const Duration(milliseconds: 250),
+        duration: const Duration(milliseconds: 300),
       );
 
       _respostas.removeAt(0);
