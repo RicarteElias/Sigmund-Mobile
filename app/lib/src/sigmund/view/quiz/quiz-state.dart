@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:app/src/sigmund/ultil/constantes.dart';
 import 'package:app/src/sigmund/view/quiz/quiz-page.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +9,7 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin{
   final GlobalKey<AnimatedListState> _listKey = GlobalKey();
   Animation animation;
   Animation animationController;
+  int count = 0 ;
 
 
   List<String> _respostas = [
@@ -20,17 +23,8 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin{
   @override
   void initState(){
     super.initState();
-
-    animationController = AnimationController(duration: Duration(seconds: 2),vsync: this);
-    animation = Tween(begin: -1.0, end:  0.0).animate(CurvedAnimation(
-      parent: animationController,curve: Curves.fastOutSlowIn
-    ));
-
-  }
-
-
-
-
+    _adicionarRespostas();
+}
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +41,6 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin{
           ),
           onPressed: ()  {
             _novaPergunta();
-
           },
         ),
 
@@ -70,34 +63,37 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin{
   }
 
   Widget _buildItem(BuildContext context, String item, Animation<double> animation) {
-    TextStyle textStyle = TextStyle(fontSize: 20);
+    TextStyle textStyle = TextStyle(fontSize: 30, color: Colors.white);
 
     return Padding(
-      padding: const EdgeInsets.only(top:20.0, left: 2, right: 2),
+      padding: const EdgeInsets.only(top:30.0, left: 5, right: 5),
       child: ScaleTransition(
         scale: animation,
         alignment: Alignment.centerLeft,
         child: SizedBox(
           height: 50.0,
-          child: Card(
-            child: Center(
-              child: Text(item, style: textStyle),
+          child: Container(
+            decoration: BoxDecoration(color: Constantes.ICON_COLOR,borderRadius: BorderRadius.circular(10),
+            boxShadow:[BoxShadow(color: Colors.black)]
             ),
+            child: Center(
+                child:Text(item, style: textStyle)
+            )
           ),
         ),
       ),
     );
   }
 
- Future <void> _novaPergunta() async {
-    await _removeAllItems();
-    _adicionarRespostas();
+ _novaPergunta(){
+    _removeAllItems();
+    Timer(Duration(milliseconds: 300), () {
+      _adicionarRespostas();
+    });
 
   }
+  _adicionarRespostas(){
 
-  void _adicionarRespostas(){
-    
-    final int itemCount = _respostas.length;
     for (var i = 0; i < 4; i++){
       _respostas.insert(0, "Resposta " + i.toString() );
       _listKey.currentState.insertItem(0);
@@ -117,7 +113,12 @@ Future <void> _removeAllItems() async {
 
       _respostas.removeAt(0);
     }
+
   }
+
+
+
+
 }
 
 
