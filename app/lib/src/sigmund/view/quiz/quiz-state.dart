@@ -7,18 +7,22 @@ import 'package:flutter/rendering.dart';
 
 class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin{
   final GlobalKey<AnimatedListState> _listKey = GlobalKey();
+  final GlobalKey<ScaffoldState> _scaffoldKey;
+
+
   Animation animation;
   Animation animationController;
   int count = 0 ;
-
 
   List<String> _respostas = [
     "Resposta ",
     "Resposta ",
     "Resposta ",
     "Resposta ",
-
   ];
+
+  QuizState(
+      this._scaffoldKey);
 
   @override
   void initState(){
@@ -28,7 +32,9 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin{
 
   @override
   Widget build(BuildContext context) {
+
     return new Scaffold(
+
       appBar: AppBar(
         title: Text('Pergunta'),
         backgroundColor: Constantes.ICON_COLOR,
@@ -60,6 +66,7 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin{
         itemBuilder: (context, index, animation) => _buildItem(context, _respostas[index], animation),
       ),
     );
+
   }
 
   Widget _buildItem(BuildContext context, String item, Animation<double> animation) {
@@ -93,11 +100,12 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin{
 
   }
   _adicionarRespostas(){
-
-    for (var i = 0; i < 4; i++){
-      _respostas.insert(0, "Resposta " + i.toString() );
-      _listKey.currentState.insertItem(0);
-    }
+    WidgetsBinding.instance.addPostFrameCallback((t){
+      for (var i = 0; i < 4; i++){
+        _respostas.insert(0, "Resposta " + i.toString() );
+        _listKey.currentState.insertItem(0);
+      }
+    });
 
   }
 
@@ -114,9 +122,8 @@ Future <void> _removeAllItems() async {
       _respostas.removeAt(0);
     }
 
+
   }
-
-
 
 
 }
