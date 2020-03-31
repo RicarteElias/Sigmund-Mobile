@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:app/src/sigmund/model/entity/questionario.dart';
 import 'package:app/src/sigmund/ultil/constantes.dart';
 import 'package:app/src/sigmund/view/quiz/quiz-page.dart';
@@ -11,14 +10,15 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin{
   bool _animationController;
   List<String> _listaAnimada = Questionario().questionario[0]['respostas'];
   List<String> _novasRespostas = Questionario().questionario[1]['respostas'];
-  int _perguntasController = 1;
+  String _novaPergunta = Questionario().questionario[0]['pergunta'];
+  int _questaoController = 1;
 
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text('Pergunta'),
+        title: new Text(_novaPergunta),
         backgroundColor: Constantes.ICON_COLOR,
       ),
       persistentFooterButtons: <Widget>[
@@ -76,8 +76,11 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin{
       _listaAnimada.insert(0, _novasRespostas[i]);
       _listKey.currentState.insertItem(0);
     }
-    _perguntasController++;
-    _novasRespostas = Questionario().questionario[_perguntasController]['respostas'];
+    _questaoController++;
+    _novasRespostas = Questionario().questionario[_questaoController]['respostas'];
+    _novaPergunta = Questionario().questionario[_questaoController -1 ]['pergunta'].toString();
+    setState(() {
+    });
   }
 
   _proximaPergunta(){
@@ -85,6 +88,7 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin{
     Timer(Duration(milliseconds: 300), () {
       _adicionarRespostas();
     });
+
   }
 
   void _removerRespotas() {
