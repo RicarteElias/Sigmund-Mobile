@@ -5,6 +5,6 @@ import 'package:flutter/material.dart';
 class QuizPage extends StatefulWidget{
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   @override
-  State<StatefulWidget> createState() => QuizState(_scaffoldKey);
+  State<StatefulWidget> createState() => QuizState();
 
 }
