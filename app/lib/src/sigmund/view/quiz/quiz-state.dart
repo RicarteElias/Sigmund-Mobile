@@ -8,9 +8,11 @@ import 'package:flutter/rendering.dart';
 
 class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin{
   final GlobalKey<AnimatedListState> _listKey = GlobalKey();
-  bool _animationController= true;
+  bool _animationController;
+  List<String> _listaAnimada = Questionario().questionario[0]['respostas'];
+  List<String> _novasRespostas = Questionario().questionario[1]['respostas'];
+  int _perguntasController = 1;
 
-  List<String> _data = Questionario.questionario[0]['respostas'];
 
   @override
   Widget build(BuildContext context) {
@@ -26,24 +28,24 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin{
             style: TextStyle(fontSize: 20, color: Colors.white),
           ),
           onPressed: () {
-            _novaPergunta();
+            _proximaPergunta();
           },
         ),
 
         RaisedButton(
           child: Text(
-            'Remove all',
+            'Remover todas',
             style: TextStyle(fontSize: 20, color: Colors.white),
           ),
           onPressed: () {
-            _removeAllItems();
+            _removerRespotas();
           },
         ),
       ],
       body: AnimatedList(
         key: _listKey,
-        initialItemCount: _data.length,
-        itemBuilder: (context, index, animation) => _buildItem(context, _data[index], animation),
+        initialItemCount: _listaAnimada.length,
+        itemBuilder: (context, index, animation) => _buildItem(context, _listaAnimada[index], animation),
       ),
     );
   }
@@ -52,7 +54,7 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin{
     TextStyle textStyle = new TextStyle(fontSize: 20);
 
     return Padding(
-      padding: const EdgeInsets.all(2.0),
+      padding: const EdgeInsets.only(top:20,left: 5,right: 5),
       child: ScaleTransition(
         scale: animation,
         alignment:_animationController==true?Alignment.centerLeft:Alignment.centerRight,
@@ -69,34 +71,32 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin{
   }
 
   void _adicionarRespostas() {
-    _removeAllItems();
     _animationController=true;
-    int i = 0;
-  while(i<4) {
-    _data.insert(0, "testes");
-    _listKey.currentState.insertItem(0);
-    i++;
-  }
+    for(var i=0;i<4;i++) {
+      _listaAnimada.insert(0, _novasRespostas[i]);
+      _listKey.currentState.insertItem(0);
+    }
+    _perguntasController++;
+    _novasRespostas = Questionario().questionario[_perguntasController]['respostas'];
   }
 
-  _novaPergunta(){
-    _removeAllItems();
+  _proximaPergunta(){
+    _removerRespotas();
     Timer(Duration(milliseconds: 300), () {
       _adicionarRespostas();
     });
   }
 
-  void _removeAllItems() {
+  void _removerRespotas() {
     _animationController=false;
-    final int itemCount = _data.length;
+    final int itemCount = _listaAnimada.length;
     for (var i = 0; i < itemCount; i++) {
-      String itemToRemove = _data[0];
+      String itemToRemove = _listaAnimada[0];
       _listKey.currentState.removeItem(0,
             (BuildContext context, Animation<double> animation) => _buildItem(context, itemToRemove, animation),
         duration: const Duration(milliseconds: 250),
       );
-
-      _data.removeAt(0);
+      _listaAnimada.removeAt(0);
     }
   }
 }

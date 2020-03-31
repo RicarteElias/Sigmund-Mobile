@@ -1,6 +1,6 @@
 class Questionario{
 
-  static final questionario = [{
+final questionario = [{
     "pergunta": "Eu sou", //1
     "respostas": ['Idealista, criativo e visionário',
       'Divertido, espiritual e benéfico',
