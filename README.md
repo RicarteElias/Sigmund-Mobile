@@ -1,4 +1,4 @@
-<img src="https://github.com/RicarteElias/Sigmund-Mobile/blob/master/app/assets/icons/icone-sigmund.png" width="390"/>
+<img src="https://github.com/RicarteElias/Sigmund-Mobile/blob/master/app/assets/icons/icone-sigmund.png" width="200"/>
 
 <h1>Sigmund</h1>
 
