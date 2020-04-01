@@ -4,6 +4,8 @@ import 'package:app/src/sigmund/ultil/constantes.dart';
 import 'package:app/src/sigmund/view/quiz/quiz-page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:nice_button/NiceButton.dart';
 
 class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin{
   final GlobalKey<AnimatedListState> _listKey = GlobalKey();
@@ -21,18 +23,15 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin{
         title: new Text(_novaPergunta),
         backgroundColor: Constantes.ICON_COLOR,
       ),
-//      persistentFooterButtons: <Widget>[
-//        RaisedButton(
-//          child: Text(
-//            'Próxima Pergunta',
-//            style: TextStyle(fontSize: 20, color: Colors.white),
-//          ),
-//          onPressed: () {
-//            _proximaPergunta();
-//          },
-//        ),
-//
-//       ],
+      floatingActionButton: FloatingActionButton.extended(
+        backgroundColor: Constantes.ICON_COLOR,
+        icon: Icon(MdiIcons.arrowRightBold),
+        label: Text("Proxima pergunta"),
+        onPressed: (){
+          _proximaPergunta();
+        },
+      ),
+
       body: Container(
         decoration: Constantes.BACKGROUND_GRADIENTE,
         child: AnimatedList(
