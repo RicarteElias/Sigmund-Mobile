@@ -20,13 +20,14 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin{
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text(_novaPergunta),
+        title: new Text(_novaPergunta,style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),),
         backgroundColor: Constantes.ICON_COLOR,
       ),
+
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: Constantes.ICON_COLOR,
         icon: Icon(MdiIcons.arrowRightBold),
-        label: Text("Proxima pergunta"),
+        label: Text("Próxima pergunta",style: TextStyle(fontSize: 20),),
         onPressed: (){
           _proximaPergunta();
         },
@@ -44,7 +45,7 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin{
   }
 
   Widget _buildItem(BuildContext context, String item, Animation<double> animation) {
-    TextStyle textStyle = new TextStyle(fontSize: 22,color: Colors.white);
+    TextStyle textStyle = new TextStyle(fontSize: 22,color: Colors.white,fontWeight: FontWeight.bold);
 
     return Padding(
       padding: const EdgeInsets.only(top:20,left: 10,right: 10),
