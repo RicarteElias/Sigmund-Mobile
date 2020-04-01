@@ -32,16 +32,7 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin{
           },
         ),
 
-        RaisedButton(
-          child: Text(
-            'Remover todas',
-            style: TextStyle(fontSize: 20, color: Colors.white),
-          ),
-          onPressed: () {
-            _removerRespotas();
-          },
-        ),
-      ],
+       ],
       body: AnimatedList(
         key: _listKey,
         initialItemCount: _listaAnimada.length,
@@ -51,7 +42,7 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin{
   }
 
   Widget _buildItem(BuildContext context, String item, Animation<double> animation) {
-    TextStyle textStyle = new TextStyle(fontSize: 20);
+    TextStyle textStyle = new TextStyle(fontSize: 22,color: Colors.white);
 
     return Padding(
       padding: const EdgeInsets.only(top:20,left: 5,right: 5),
@@ -59,12 +50,14 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin{
         scale: animation,
         alignment:_animationController==true?Alignment.centerLeft:Alignment.centerRight,
         child: SizedBox(
-          height: 50.0,
-          child: Card(
-            child: Center(
-              child: Text(item, style: textStyle),
-            ),
+          height: 90,
+          child:  Container(
+              decoration: BoxDecoration(border:Border.all(color: Colors.white,width: 1.0, style: BorderStyle.solid),
+                borderRadius: BorderRadius.all(Radius.elliptical(10, 10)),color: Constantes.ICON_COLOR,),
+              child: Padding(padding: EdgeInsets.all(10),
+                child:Container(child: Text(item,style: textStyle,)),)
           ),
+
         ),
       ),
     );

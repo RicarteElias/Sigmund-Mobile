@@ -160,7 +160,7 @@ final questionario = [{
       "respostas": ['Não é fácil ficar encurralado ',
         'Duas cabeças pensam melhor do que uma ',
         ' É preferível olhar, antes de pular ',
-        'Se você não tem condições de competir,não compita '],
+        'Se você não tem condições de competir, não compita '],
     }];
 
 }
