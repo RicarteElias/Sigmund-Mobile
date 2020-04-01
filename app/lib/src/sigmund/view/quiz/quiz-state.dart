@@ -21,23 +21,26 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin{
         title: new Text(_novaPergunta),
         backgroundColor: Constantes.ICON_COLOR,
       ),
-      persistentFooterButtons: <Widget>[
-        RaisedButton(
-          child: Text(
-            'Próxima Pergunta',
-            style: TextStyle(fontSize: 20, color: Colors.white),
-          ),
-          onPressed: () {
-            _proximaPergunta();
-          },
+//      persistentFooterButtons: <Widget>[
+//        RaisedButton(
+//          child: Text(
+//            'Próxima Pergunta',
+//            style: TextStyle(fontSize: 20, color: Colors.white),
+//          ),
+//          onPressed: () {
+//            _proximaPergunta();
+//          },
+//        ),
+//
+//       ],
+      body: Container(
+        decoration: Constantes.BACKGROUND_GRADIENTE,
+        child: AnimatedList(
+          key: _listKey,
+          initialItemCount: _listaAnimada.length,
+          itemBuilder: (context, index, animation) => _buildItem(context, _listaAnimada[index], animation),
         ),
-
-       ],
-      body: AnimatedList(
-        key: _listKey,
-        initialItemCount: _listaAnimada.length,
-        itemBuilder: (context, index, animation) => _buildItem(context, _listaAnimada[index], animation),
-      ),
+      )
     );
   }
 
@@ -45,14 +48,15 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin{
     TextStyle textStyle = new TextStyle(fontSize: 22,color: Colors.white);
 
     return Padding(
-      padding: const EdgeInsets.only(top:20,left: 5,right: 5),
+      padding: const EdgeInsets.only(top:20,left: 10,right: 10),
       child: ScaleTransition(
         scale: animation,
         alignment:_animationController==true?Alignment.centerLeft:Alignment.centerRight,
         child: SizedBox(
           height: 90,
           child:  Container(
-              decoration: BoxDecoration(border:Border.all(color: Colors.white,width: 1.0, style: BorderStyle.solid),
+              decoration: BoxDecoration(
+                boxShadow: [BoxShadow(color: Color.fromRGBO(68, 31, 84, 1.0), blurRadius: 10,spreadRadius: 3)],
                 borderRadius: BorderRadius.all(Radius.elliptical(10, 10)),color: Constantes.ICON_COLOR,),
               child: Padding(padding: EdgeInsets.all(10),
                 child:Container(child: Text(item,style: textStyle,)),)
