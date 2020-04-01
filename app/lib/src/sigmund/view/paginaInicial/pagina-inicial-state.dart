@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:nice_button/NiceButton.dart';
 
 class PaginaInicialState extends State<PaginaInicialPage>{
-  @override
+
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   void initState(){
     super.initState();
@@ -19,12 +19,14 @@ class PaginaInicialState extends State<PaginaInicialPage>{
       Scaffold(
         key:_scaffoldKey,
           body: Center(
-      child: Container(
-      decoration: Constantes.BACKGROUND_GRADIENTE,
-  child: Center(
-  child: colunaInicial()
-  ),
-  )));
+            child: Container(
+                 decoration: Constantes.BACKGROUND_GRADIENTE,
+                child: Center(
+                  child: colunaInicial()
+    ),
+  )
+          )
+      );
 
 
 Column colunaInicial () =>Column(
@@ -42,15 +44,13 @@ Container startButton()=>Container(
     text: "Iniciar Questionário",
     background: Constantes.ICON_COLOR,
     onPressed: () {
-    redirecionarPagina();
+    _redirecionarPagina();
       print("Diego gado");
     },
   ),
 );
 
-redirecionarPagina(){
+_redirecionarPagina(){
   Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>QuizPage()), (page)=>false);
-
 }
-
 }

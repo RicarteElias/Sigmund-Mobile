@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+///Constantes para serem usadas no aplicativo
+
 class Constantes {
 
   //Cores

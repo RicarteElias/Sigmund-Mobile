@@ -1,5 +1,10 @@
 class Questionario{
 
+  ///Lista de questões usadas no método disk.
+  /// Lista Map onde cada posição da lisa refere-se a uma perhgunta,
+  /// key de nome 'pergunta' possui como value pegunta,
+  /// key de nome 'respostas' possui como value uma lista de string com todas as respostas referentes a pergunta.
+
 final questionario = [{
     "pergunta": "Eu sou", //1
     "respostas": ['Idealista, criativo e visionário',
