@@ -11,7 +11,7 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin{
   bool _animationController;
   List<String> _listaAnimada = Questionario().questionario[0]['respostas'];
   List<String> _novasRespostas = Questionario().questionario[1]['respostas'];
-  String _novaPergunta = Questionario().questionario[0]['pergunta'];
+  String _novaPergunta = Questionario().questionario[0]['pergunta'].toString()+ "..." ;
   int _questaoController = 1;
 
 
@@ -74,7 +74,7 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin{
     }
     _questaoController++;
     _novasRespostas = Questionario().questionario[_questaoController]['respostas'];
-    _novaPergunta = Questionario().questionario[_questaoController -1 ]['pergunta'].toString();
+    _novaPergunta = Questionario().questionario[_questaoController -1 ]['pergunta'].toString() +"...";
     setState(() {
     });
   }

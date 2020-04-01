@@ -37,7 +37,7 @@ final questionario = [{
       'Estou me exercitando '],
   }, {
     "pergunta": "Eu penso que", //6
-    "respostas": ['É bom ser manso, mas andar com um porrete ',
+    "respostas": ['É bom ser manso, mas andar com um porrete',
       'Unidos venceremos, divididos perderemos ',
       'Um homem prevenido vale por dois ',
       'O ataque é melhor que a defesa '],
@@ -49,7 +49,7 @@ final questionario = [{
       'Fazer com que aconteça '],
   }, {
     "pergunta": "Eu prefiro", //8
-    "respostas": ['Perguntas a respostas ',
+    "respostas": ['Perguntas a respostas',
       'Que todos tenham a chance de serem ouvidos ',
       'Ter todos os detalhes ',
       'Vantagens a meu favor '],
@@ -91,7 +91,7 @@ final questionario = [{
       'Focalizar a meta '],
   }
     , {
-      "pergunta": "Eu gosto de mudanças se ", //15
+      "pergunta": "Eu gosto de mudanças se", //15
       "respostas": ['Me der mais liberdade e variedade ',
         'For divertido e puder ser compartilhado ',
         'Melhorar ou me der mais controle ',
@@ -167,5 +167,4 @@ final questionario = [{
         ' É preferível olhar, antes de pular ',
         'Se você não tem condições de competir, não compita '],
     }];
-
 }
