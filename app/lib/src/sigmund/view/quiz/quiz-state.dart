@@ -32,18 +32,7 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin{
         title: Text(_novaPergunta,style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),),
         backgroundColor: Constantes.ICON_COLOR,
       ),
-
-//Floating button de próxima pergunta
-//      floatingActionButton: FloatingActionButton.extended(
-//        backgroundColor: Constantes.ICON_COLOR,
-//        icon: Icon(MdiIcons.arrowRightBold),
-//        label: Text("Próxima pergunta",style: TextStyle(fontSize: 20),),
-//        onPressed: (){
-//          _isButtonTapped?Null:_proximaPergunta();
-//          setState(() => _isButtonTapped =
-//          !_isButtonTapped);
-//        },
-//      ),
+      
 
       body: Container(
         decoration: Constantes.BACKGROUND_GRADIENTE,
