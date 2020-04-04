@@ -63,7 +63,7 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin{
       padding: const EdgeInsets.only(top:25,left: 10,right: 10),
       child: ScaleTransition(
         scale: animation,
-        alignment:_animationController==true?Alignment.centerLeft:Alignment.centerRight,
+        alignment:_animationController==true?Alignment.centerRight:Alignment.centerLeft,
         child: GestureDetector(
           onTap: (){
             if(_questaoController == 24){
@@ -91,7 +91,6 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin{
       ),
     );
   }
-
   //Método para adicionar respostas a lista
   void _adicionarRespostas() {
     _animationController=true;
@@ -117,7 +116,6 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin{
       _isButtonTapped = false;
     });
   }
-
   //Método para esvaziar a lista
   void _removerRespotas() {
     _animationController=false;
