@@ -4,7 +4,6 @@ import 'package:app/src/sigmund/ultil/constantes.dart';
 import 'package:app/src/sigmund/view/quiz/quiz-page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin{
   final GlobalKey<AnimatedListState> _listKey = GlobalKey();
@@ -15,13 +14,14 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin{
   //Lista com as respostas
   List<String> _novasRespostas = Questionario().questionario[1]['respostas'];
   //Texto da pergunta
-  String _novaPergunta = Questionario().questionario[0]['pergunta'].toString()+ "..." ;
+  String novaPergunta = Questionario().questionario[0]['pergunta'].toString()+ "..." ;
   //controller da questão
   int _questaoController = 1 ;
   //controller pra impedir double tap na lista
   bool _isButtonTapped = false;
   //lista com o numero de escolhas
   var qtdeRespostas = [0,0,0,0];
+  bool _fadeTransitionController = true;
 
 
 
@@ -34,7 +34,9 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin{
           children: <Widget>[
             SizedBox(child:
              Container(child:  Padding(padding: EdgeInsets.only(top: 40,left: 10),
-                 child:Text(_novaPergunta,style: TextStyle(fontSize: 25,fontWeight:FontWeight.bold,color: Colors.white),)
+                 child:
+                 AnimatedOpacity(opacity: _fadeTransitionController? 1.0:0.0, duration: Duration(milliseconds: 300),child:
+                 Text(novaPergunta,style: TextStyle(fontSize: 25,fontWeight:FontWeight.bold,color: Colors.white),))
              ),)),
             AnimatedList(
               shrinkWrap: true,
@@ -58,7 +60,7 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin{
         alignment:_animationController==true?Alignment.centerRight:Alignment.centerLeft,
         child: GestureDetector(
           onTap: (){
-            if(_questaoController == 24){
+            if(_questaoController == 25){
               qtdeRespostas[index]++;
               print(qtdeRespostas);
               print("ir pra tela final");
@@ -66,17 +68,25 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin{
             else{
             // ignore: unnecessary_statements
             _isButtonTapped?null:_proximaPergunta(index);
-            setState(() => _isButtonTapped =
-            !_isButtonTapped);}
+            setState(() {
+              _fadeTransitionController = !_fadeTransitionController;
+              _isButtonTapped = !_isButtonTapped;
+            });
+
+            }
 
           },child: SizedBox(
             height: 80,
               child:  Container(
+                //Text(item,style: textStyle,)
                 decoration: BoxDecoration(
                 boxShadow: [BoxShadow(color: Color.fromRGBO(68, 31, 84, 1.0), blurRadius: 10,spreadRadius: 3)],
                 borderRadius: BorderRadius.all(Radius.elliptical(10, 10)),color: Constantes.ICON_COLOR,),
                 child: Padding(padding: EdgeInsets.all(10),
-                  child:Container(child: Padding(padding: EdgeInsets.only(top: 10),child: Text(item,style: textStyle,)),),)
+                  child:Container(child: Padding(padding: EdgeInsets.only(top: 5),child: Text(item,style: textStyle,)
+                    ),
+                  ),
+                )
           ),
         ),
         )
@@ -92,9 +102,8 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin{
     }
     _questaoController++;
     _novasRespostas = Questionario().questionario[_questaoController]['respostas'];
-    _novaPergunta = Questionario().questionario[_questaoController -1 ]['pergunta'].toString() +"...";
-    setState(() {
-    });
+    novaPergunta = Questionario().questionario[_questaoController -1 ]['pergunta'].toString() +"...";
+
   }
 
   //Método para chamar a próxima pergunta
@@ -106,6 +115,7 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin{
     Timer(Duration(milliseconds: 300), () {
       _adicionarRespostas();
       _isButtonTapped = false;
+      setState(()=>_fadeTransitionController = !_fadeTransitionController);
     });
   }
   //Método para esvaziar a lista
