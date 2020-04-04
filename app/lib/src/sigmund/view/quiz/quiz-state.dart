@@ -17,7 +17,7 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin{
   //Texto da pergunta
   String _novaPergunta = Questionario().questionario[0]['pergunta'].toString()+ "..." ;
   //controller da questão
-  int _questaoController = 0 ;
+  int _questaoController = 1 ;
   //controller pra impedir double tap na lista
   bool _isButtonTapped = false;
   //lista com o numero de escolhas
@@ -27,29 +27,32 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin{
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: AppBar(
-        title: Text(_novaPergunta,style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),),
-        backgroundColor: Constantes.ICON_COLOR,
-      ),
-      
-
+    return Scaffold(
       body: Container(
         decoration: Constantes.BACKGROUND_GRADIENTE,
-        child: AnimatedList(
+        child: Column(
+          children: <Widget>[
+            SizedBox(child:
+             Container(child:  Padding(padding: EdgeInsets.only(top: 40,left: 10),
+                 child:Text(_novaPergunta,style: TextStyle(fontSize: 25,fontWeight:FontWeight.bold,color: Colors.white),)
+             ),)),
+            AnimatedList(
+              shrinkWrap: true,
           key: _listKey,
           initialItemCount: _listaAnimada.length,
           itemBuilder: (context, index, animation) => _buildItem(context, _listaAnimada[index], animation,index),
         ),
+      ],
+        )
       )
     );
   }
 
   //Builder da lista
   Widget _buildItem(BuildContext context, String item, Animation<double> animation,index) {
-    TextStyle textStyle = new TextStyle(fontSize: 22,color: Colors.white,fontWeight: FontWeight.bold);
+    TextStyle textStyle = new TextStyle(fontSize: 20,color: Colors.white,fontWeight: FontWeight.bold);
     return Padding(
-      padding: const EdgeInsets.only(top:25,left: 10,right: 10),
+      padding: const EdgeInsets.only(top:30,left: 10,right: 10),
       child: ScaleTransition(
         scale: animation,
         alignment:_animationController==true?Alignment.centerRight:Alignment.centerLeft,
@@ -67,13 +70,13 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin{
             !_isButtonTapped);}
 
           },child: SizedBox(
-            height: 90,
+            height: 80,
               child:  Container(
                 decoration: BoxDecoration(
                 boxShadow: [BoxShadow(color: Color.fromRGBO(68, 31, 84, 1.0), blurRadius: 10,spreadRadius: 3)],
                 borderRadius: BorderRadius.all(Radius.elliptical(10, 10)),color: Constantes.ICON_COLOR,),
                 child: Padding(padding: EdgeInsets.all(10),
-                  child:Container(child: Text(item,style: textStyle,)),)
+                  child:Container(child: Padding(padding: EdgeInsets.only(top: 10),child: Text(item,style: textStyle,)),),)
           ),
         ),
         )
