@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:app/src/sigmund/model/entity/questionario.dart';
+import 'package:app/src/sigmund/resource/questionario.dart';
 import 'package:app/src/sigmund/ultil/constantes.dart';
 import 'package:app/src/sigmund/view/quiz/quiz-page.dart';
 import 'package:flutter/material.dart';
