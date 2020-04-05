@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:app/src/sigmund/resource/definir-perfil.dart';
 import 'package:app/src/sigmund/resource/questionario.dart';
 import 'package:app/src/sigmund/ultil/constantes.dart';
 import 'package:app/src/sigmund/view/quiz/quiz-page.dart';
@@ -36,7 +37,7 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin{
              Container(child:  Padding(padding: EdgeInsets.only(top: 40,left: 10),
                  child:
                  AnimatedOpacity(opacity: _fadeTransitionController? 1.0:0.0, duration: Duration(milliseconds: 300),child:
-                 Text(novaPergunta,style: TextStyle(fontSize: 25,fontWeight:FontWeight.bold,color: Colors.white),))
+                  Text(novaPergunta,style: TextStyle(fontSize: 25,fontWeight:FontWeight.bold,color: Colors.white),))
              ),)),
             AnimatedList(
               shrinkWrap: true,
@@ -60,21 +61,17 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin{
         alignment:_animationController==true?Alignment.centerRight:Alignment.centerLeft,
         child: GestureDetector(
           onTap: (){
-            if(_questaoController == 25){
+            if(_questaoController < 25){
+              // ignore: unnecessary_statements
+              _isButtonTapped?null:_proximaPergunta(index);
+              setState(() {
+                _isButtonTapped = !_isButtonTapped;
+              });
+            }else{
               qtdeRespostas[index]++;
               print(qtdeRespostas);
-              print("ir pra tela final");
+              print(DefinirPerfil(qtdeRespostas).definirPerfil());
             }
-            else{
-            // ignore: unnecessary_statements
-            _isButtonTapped?null:_proximaPergunta(index);
-            setState(() {
-              _fadeTransitionController = !_fadeTransitionController;
-              _isButtonTapped = !_isButtonTapped;
-            });
-
-            }
-
           },child: SizedBox(
             height: 80,
               child:  Container(
@@ -101,21 +98,22 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin{
       _listKey.currentState.insertItem(0);
     }
     _questaoController++;
-    _novasRespostas = Questionario().questionario[_questaoController]['respostas'];
-    novaPergunta = Questionario().questionario[_questaoController -1 ]['pergunta'].toString() +"...";
+    _questaoController==25?null:_novasRespostas = Questionario().questionario[_questaoController]['respostas'];
+    _questaoController==24?null:novaPergunta = Questionario().questionario[_questaoController -1 ]['pergunta'].toString() +"...";
 
   }
 
   //Método para chamar a próxima pergunta
     _proximaPergunta(index){
+     setState(() => _fadeTransitionController = !_fadeTransitionController);
     qtdeRespostas[index]++;
     print(qtdeRespostas);
     _removerRespotas();
     //Timer para sincronizar a animação da lista
     Timer(Duration(milliseconds: 300), () {
       _adicionarRespostas();
-      _isButtonTapped = false;
       setState(()=>_fadeTransitionController = !_fadeTransitionController);
+      _isButtonTapped = false;
     });
   }
   //Método para esvaziar a lista
