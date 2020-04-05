@@ -39,12 +39,14 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin{
                  AnimatedOpacity(opacity: _fadeTransitionController? 1.0:0.0, duration: Duration(milliseconds: 300),child:
                   Text(novaPergunta,style: TextStyle(fontSize: 25,fontWeight:FontWeight.bold,color: Colors.white),))
              ),)),
-            AnimatedList(
-              shrinkWrap: true,
+            Flexible(
+                          child: AnimatedList(
+                shrinkWrap: true,
           key: _listKey,
           initialItemCount: _listaAnimada.length,
           itemBuilder: (context, index, animation) => _buildItem(context, _listaAnimada[index], animation,index),
         ),
+            ),
       ],
         )
       )
