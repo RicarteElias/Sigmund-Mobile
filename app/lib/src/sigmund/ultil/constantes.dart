@@ -6,15 +6,19 @@ import 'package:flutter/material.dart';
 class Constantes {
 
   //Cores
-  static final Color BACKGROUND = Color.fromRGBO(126, 57, 154, 1.0);
-  static final Color ICON_COLOR = Color.fromRGBO(102, 16, 137, 1.0);
+  static const Color BACKGROUND = Color.fromRGBO(126, 57, 154, 1.0);
+  static const Color ICON_COLOR = Color.fromRGBO(102, 16, 137, 1.0);
 
-  //Variaveis normais
-  static final String ICONE_LOGO = "assets/icons/icone-sigmund.png";
+  //Variaveis imagens
+  static const String ICONE_LOGO = "assets/icons/icone-sigmund.png";
+  static const String IMAGE_ANALISTA = "assets/perfis/analista.png";
+  static const String IMAGE_COMUNICADOR = "assets/perfis/comunicador.png";
+  static const String IMAGE_EXECUTOR = "assets/perfis/executor.png";
+  static const String IMAGE_PLANEJADOR= "assets/perfis/planejador.png";
 
 
   //Widgets
-  static final BACKGROUND_GRADIENTE = BoxDecoration(
+  static const BACKGROUND_GRADIENTE = BoxDecoration(
       gradient: LinearGradient(
           begin: Alignment.topRight,
           end: Alignment.bottomLeft,
