@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:app/src/sigmund/resource/definir-perfil.dart';
 import 'package:app/src/sigmund/resource/questionario.dart';
 import 'package:app/src/sigmund/ultil/constantes.dart';
 import 'package:app/src/sigmund/view/quiz/quiz-page.dart';
@@ -72,7 +71,6 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin{
             }else{
               qtdeRespostas[index]++;
               print(qtdeRespostas);
-              print(DefinirPerfil(qtdeRespostas).definirPerfil());
             }
           },child: SizedBox(
             height: 80,
