@@ -10,8 +10,7 @@ class VisualizarPerfilPage extends StatefulWidget{
     this.respostas=respostas;
   }
 
-  @override
-  State<StatefulWidget> createState()=>VisualizarPerfilState(respostas: this.respostas);
+  State<StatefulWidget> createState()=>VisualizarPerfilState(respostas: respostas);
 }
 
 

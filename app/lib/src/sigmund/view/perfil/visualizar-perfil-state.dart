@@ -1,3 +1,4 @@
+import 'package:app/src/sigmund/resource/perfil-helper.dart';
 import 'package:app/src/sigmund/resource/perfil.dart';
 import 'package:app/src/sigmund/ultil/constantes.dart';
 import 'package:app/src/sigmund/view/perfil/visualizar-perfil-page.dart';
@@ -7,48 +8,47 @@ import 'package:flutter/material.dart';
 class VisualizarPerfilState extends State<VisualizarPerfilPage> {
 
   List<int> respostas;
-  Perfil perfilDefinido;
+  Perfil perfil;
 
   VisualizarPerfilState({this.respostas}){
+    this.perfil = PerfilHelper.getPerfil(respostas);
+  }
 
+  void initState(){
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    Scaffold(
-      body: Container(
-        decoration: Constantes.BACKGROUND_GRADIENTE,
-        child: Center(
+   return Scaffold(
+       body: Container(
+           decoration: Constantes.BACKGROUND_GRADIENTE,
+           child: Column(
+             crossAxisAlignment: CrossAxisAlignment.stretch,
+             children: <Widget>[
+               SizedBox(child:
+                  Container(child:  Padding(padding: EdgeInsets.only(top: 40,left: 20),
+                   child:Text("O seu perfil é...",style: TextStyle(fontSize: 25,fontWeight:FontWeight.bold,color: Colors.white),)
+               ),)),
+                        Center(
+                        child: Column(
+                          children: <Widget>[ Padding(padding: EdgeInsets.only(top: 50),child:
+                          Text(PerfilHelper.getNome(perfil),style: TextStyle(fontSize: 25,fontWeight:FontWeight.bold,color: Colors.white)
+                            ,)
+                            ,)
+                          ,Padding(padding: EdgeInsets.only(top: 20),child: 
+                              SizedBox(
 
-        ),
-      ),
-    );
+                                child: Image.asset(PerfilHelper.getImagem(perfil),
+                                    height: MediaQuery.of(context).size.height * (Perfil.analista==perfil?0.25:0.3)),
+                              ),)],
+                        ),
+               )
+             ],
+           )
+       )
+   );
   }
 
-  String _perfilDefinido() {
-    switch(perfilDefinido){
-      case Perfil.analista:
-        return "Analista";
-      case Perfil.comunicador:
-        return "Comunicador";
-      case Perfil.executor:
-        return "Executor";
-      case Perfil.planejador:
-        return "Planejador";
-    }
-  }
 
-  String imagemPerfil(){
-    switch(perfilDefinido){
-
-      case Perfil.analista:
-        return Constantes.IMAGE_ANALISTA;
-      case Perfil.comunicador:
-        return Constantes.IMAGE_COMUNICADOR;
-      case Perfil.executor:
-        return Constantes.IMAGE_EXECUTOR;
-      case Perfil.planejador:
-        return Constantes.IMAGE_PLANEJADOR;
-    }
-  }
 }

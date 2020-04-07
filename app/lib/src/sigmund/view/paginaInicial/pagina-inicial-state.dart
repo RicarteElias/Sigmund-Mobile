@@ -9,6 +9,7 @@ import 'package:nice_button/NiceButton.dart';
 class PaginaInicialState extends State<PaginaInicialPage>{
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
   void initState(){
     super.initState();
   }
@@ -51,6 +52,6 @@ Container startButton()=>Container(
 );
 
 _redirecionarPagina(){
-  Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>QuizPage()), (page)=>false);
-}
+    Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>QuizPage()), (page)=>false);
+  }
 }

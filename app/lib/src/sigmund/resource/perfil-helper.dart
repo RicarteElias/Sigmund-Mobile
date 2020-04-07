@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:app/src/sigmund/resource/perfil.dart';
 import 'package:app/src/sigmund/ultil/constantes.dart';
 
@@ -26,12 +25,10 @@ class PerfilHelper{
         return Perfil.planejador;
       }
     }
-
-
   }
 
   // ignore: missing_return
-  static String getValue(Perfil perfil){
+  static String getNome(Perfil perfil){
     switch( perfil ){
       case Perfil.analista:
         return "Analista";
@@ -42,11 +39,10 @@ class PerfilHelper{
       case Perfil.planejador:
         return "Planejador";
     }
-
   }
 
   // ignore: missing_return
-  static String getImage(Perfil perfil){
+  static String getImagem(Perfil perfil){
 
     switch(perfil){
       case Perfil.analista:
@@ -58,7 +54,6 @@ class PerfilHelper{
       case Perfil.planejador:
         return Constantes.IMAGE_PLANEJADOR;
     }
-
   }
 
 

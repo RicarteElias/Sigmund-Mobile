@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:app/src/sigmund/resource/questionario.dart';
 import 'package:app/src/sigmund/ultil/constantes.dart';
+import 'package:app/src/sigmund/view/paginaInicial/pagina-inicial-page.dart';
+import 'package:app/src/sigmund/view/perfil/visualizar-perfil-page.dart';
 import 'package:app/src/sigmund/view/quiz/quiz-page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -71,6 +73,8 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin{
             }else{
               qtdeRespostas[index]++;
               print(qtdeRespostas);
+              _redirecionarPagina();
+
             }
           },child: SizedBox(
             height: 80,
@@ -128,6 +132,11 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin{
       );
       _listaAnimada.removeAt(0);
     }
+  }
+
+  _redirecionarPagina(){
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context)=> VisualizarPerfilPage(respostas: qtdeRespostas,)), (page)=>false);
   }
 }
 

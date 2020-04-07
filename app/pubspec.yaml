@@ -50,7 +50,7 @@ flutter:
       - assets/perfis/analista.png
       - assets/perfis/comunicador.png
       - assets/perfis/executor.png
-      - assets\perfis\planejador.png
+      - assets/perfis/planejador.png
       - assets/icons/icone-sigmund.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
