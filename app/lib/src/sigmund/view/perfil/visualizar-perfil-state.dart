@@ -40,8 +40,9 @@ class VisualizarPerfilState extends State<VisualizarPerfilPage> {
                               SizedBox(
 
                                 child: Image.asset(PerfilHelper.getImagem(perfil),
-                                    height: MediaQuery.of(context).size.height * (Perfil.analista==perfil?0.25:0.3)),
-                              ),)],
+                                    height: MediaQuery.of(context).size.height * (Perfil.analista==perfil?0.22:0.3)),
+                              ),),
+                        ],
                         ),
                )
              ],
