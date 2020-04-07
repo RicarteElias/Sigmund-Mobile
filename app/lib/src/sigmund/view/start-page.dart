@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class StartPage extends StatelessWidget {
-
-
   @override
   Widget build(BuildContext context) {
     //bloquear giro de tela

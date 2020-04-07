@@ -46,7 +46,6 @@ Container startButton()=>Container(
     background: Constantes.ICON_COLOR,
     onPressed: () {
     _redirecionarPagina();
-      print("Diego gado");
     },
   ),
 );
