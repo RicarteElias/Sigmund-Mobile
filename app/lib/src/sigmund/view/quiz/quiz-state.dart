@@ -129,11 +129,15 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin {
         : _novasRespostas =
             Questionario().questionario[_questaoController]['respostas'];
     _questaoController == 24
-        ? null
+        ? novaPergunta = Questionario()
+        .questionario[_questaoController -1]['pergunta']
+        .toString() +
+        "..."
         : novaPergunta = Questionario()
-                .questionario[_questaoController - 1]['pergunta']
+                .questionario[_questaoController-1]['pergunta']
                 .toString() +
             "...";
+
   }
 
   //Método para chamar a próxima pergunta
