@@ -57,4 +57,19 @@ class PerfilHelper{
   }
 
 
+  static String getDescricao(Perfil perfil){
+    switch( perfil ){
+      case Perfil.analista:
+        return "Você é uma pessoa detalhista e meticulosa, a pessoa analista é organizada, responsável \n e altamente conservadora, sendo hábil ao controlar processos e rotinas repetitivas.";
+      case Perfil.comunicador:
+        return "Você é uma pessoa comunicativa e geralmente dotada de grande carisma e poder de persuasão e também uma pessoa sempre entusiasmada com projetos e novidades, tende a ser muito otimista e relaciona-se com facilidade.";
+      case Perfil.executor:
+        return "Você é uma pessoa dotada de extrema autoconfiança, esse tipo de pessoa é dominante e em casos extremos, pode ser autoritária e ditatorial, aceita e se dá bem com desafios e dificuldades, possui senso de competitividade extremo e costuma ser corajoso em suas posturas e ao defender seus pontos de vista.";
+      case Perfil.planejador:
+        return "Você é uma pessoa estável e paciente, de ritmo constante e alto grau de conservadorismo, dificilmente entra em pânico e tem uma pequena capacidade de improviso.";
+    }
+
+
+}
+
 }

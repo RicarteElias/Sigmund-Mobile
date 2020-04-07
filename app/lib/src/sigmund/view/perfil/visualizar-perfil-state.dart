@@ -50,6 +50,4 @@ class VisualizarPerfilState extends State<VisualizarPerfilPage> {
        )
    );
   }
-
-
 }
