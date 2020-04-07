@@ -42,7 +42,9 @@ class VisualizarPerfilState extends State<VisualizarPerfilPage> {
                                 child: Image.asset(PerfilHelper.getImagem(perfil),
                                     height: MediaQuery.of(context).size.height * (Perfil.analista==perfil?0.22:0.3)),
                               ),),
-                        ],
+                              Padding(padding: EdgeInsets.only(top: 20,left: 20,right: 20),child: Center(
+                                child: Text(PerfilHelper.getDescricao(perfil),style: TextStyle(fontSize: 20,color: Colors.white),textAlign:TextAlign.center,),
+                              ),)],
                         ),
                )
              ],
