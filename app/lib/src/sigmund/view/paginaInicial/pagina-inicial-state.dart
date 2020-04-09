@@ -1,4 +1,5 @@
 import 'package:app/src/sigmund/ultil/constantes.dart';
+import 'package:app/src/sigmund/view/componentes/botao-pagina-inicial.dart';
 import 'package:app/src/sigmund/view/componentes/logo-image.dart';
 import 'package:app/src/sigmund/view/paginaInicial/pagina-inicial-page.dart';
 import 'package:app/src/sigmund/view/quiz/quiz-page.dart';
@@ -33,24 +34,15 @@ class PaginaInicialState extends State<PaginaInicialPage>{
 Column colunaInicial () =>Column(
   mainAxisSize: MainAxisSize.max,
   mainAxisAlignment: MainAxisAlignment.center,
-  children: <Widget>[LogoImage(height: 0.4,),Padding(padding: EdgeInsets.only(top: 100),child: startButton(),)
+  children: <Widget>[LogoImage(height: 0.4,),Padding(padding: EdgeInsets.only(top: 100))
   ],
 );
 
-Container startButton()=>Container(
-  margin: EdgeInsets.all(20),
-  child: NiceButton(width: 270,
-    elevation: 8.0,
-    radius: 52.0,
-    text: "Iniciar Questionário",
-    background: Constantes.ICON_COLOR,
-    onPressed: () {
-    _redirecionarPagina();
-    },
-  ),
-);
+ Column _startButtons()=> Column(children: <Widget>[StartButton(onPressed: _redirecionarPagina,texto: "Iniciar Questionário",)],);
 
 _redirecionarPagina(){
     Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>QuizPage()), (page)=>false);
   }
+
+Padding _paddingBotoes()=>Padding(padding:EdgeInsets.only(top: 20));
 }
