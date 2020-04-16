@@ -1,3 +1,4 @@
+import 'package:app/src/sigmund/ultil/componentes/qr-code.dart';
 import 'package:app/src/sigmund/ultil/constantes.dart';
 import 'package:app/src/sigmund/view/componentes/botao-pagina-inicial.dart';
 import 'package:app/src/sigmund/view/componentes/logo-image.dart';
@@ -34,15 +35,27 @@ class PaginaInicialState extends State<PaginaInicialPage>{
 Column colunaInicial () =>Column(
   mainAxisSize: MainAxisSize.max,
   mainAxisAlignment: MainAxisAlignment.center,
-  children: <Widget>[LogoImage(height: 0.4,),Padding(padding: EdgeInsets.only(top: 100))
+  children: <Widget>[LogoImage(height: 0.4,),Padding(padding: EdgeInsets.only(top: 100),child: _startButtons(),)
   ],
 );
 
- Column _startButtons()=> Column(children: <Widget>[StartButton(onPressed: _redirecionarPagina,texto: "Iniciar Questionário",)],);
+ Column _startButtons()=> Column(children: <Widget>[
+   StartButton(onPressed: _redirecionar,texto: "Ler QR Code",),
+   _paddingBotoes(),
+   StartButton(onPressed: _redirecionarPagina,texto: "Iniciar Questionário",),
+   _paddingBotoes(),
+   StartButton(onPressed: _redirecionarPagina,texto: "Método Disc",)],);
 
 _redirecionarPagina(){
     Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>QuizPage()), (page)=>false);
   }
 
 Padding _paddingBotoes()=>Padding(padding:EdgeInsets.only(top: 20));
+
+_redirecionar() async {
+  String teste = await QrCodeScanner().scan();
+  print(teste);
+  _redirecionarPagina();
+}
+
 }

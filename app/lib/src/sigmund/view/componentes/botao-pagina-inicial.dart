@@ -14,7 +14,7 @@ class StartButton extends StatelessWidget{
   Widget build(BuildContext context) =>NiceButton(width: 270,
     elevation: 8.0,
     radius: 52.0,
-    text: "Iniciar Questionário",
+    text: texto,
     background: Constantes.ICON_COLOR,
     onPressed: this.onPressed
   );
