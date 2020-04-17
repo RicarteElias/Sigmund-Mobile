@@ -6,11 +6,11 @@ import 'package:app/src/sigmund/view/paginaInicial/pagina-inicial-page.dart';
 import 'package:app/src/sigmund/view/quiz/quiz-page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:nice_button/NiceButton.dart';
 
 class PaginaInicialState extends State<PaginaInicialPage>{
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  String test;
 
   void initState(){
     super.initState();
@@ -40,7 +40,7 @@ Column colunaInicial () =>Column(
 );
 
  Column _startButtons()=> Column(children: <Widget>[
-   StartButton(onPressed: _redirecionar,texto: "Ler QR Code",),
+   StartButton(onPressed: _callQrCodeScan,texto: "Ler QR Code",),
    _paddingBotoes(),
    StartButton(onPressed: _redirecionarPagina,texto: "Iniciar Questionário",),
    _paddingBotoes(),
@@ -52,10 +52,9 @@ _redirecionarPagina(){
 
 Padding _paddingBotoes()=>Padding(padding:EdgeInsets.only(top: 20));
 
-_redirecionar() async {
-  String teste = await QrCodeScanner().scan();
-  print(teste);
-  _redirecionarPagina();
-}
+_callQrCodeScan() async {
+  QrCodeScanner().scan().then((returnScan){print(returnScan);});
+  
+  }
 
 }
