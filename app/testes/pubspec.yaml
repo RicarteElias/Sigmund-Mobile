@@ -1,5 +1,5 @@
-name: app
-description: Aplicação mobile para definir perfis comportamentais.
+name: testes
+description: Projeto para testes.
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -14,7 +14,7 @@ description: Aplicação mobile para definir perfis comportamentais.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.2.0 <3.0.0"
+  sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -23,11 +23,6 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
-  nice_button: ^0.1.7
-  material_design_icons_flutter: 2.7.94
-  flutter_launcher_icons: ^0.7.4
-  qrscan: ^0.2.17
-  get: ^2.0.1
 
 dev_dependencies:
   flutter_test:
@@ -49,12 +44,6 @@ flutter:
   # assets:
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg
-  assets:
-      - assets/perfis/analista.png
-      - assets/perfis/comunicador.png
-      - assets/perfis/executor.png
-      - assets/perfis/planejador.png
-      - assets/icons/icone-sigmund.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
@@ -81,8 +70,3 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
-
-flutter_icons:
-  android: true
-  ios: true
-  image_path: "assets/icons/icone-sigmund.png"
