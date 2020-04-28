@@ -1,7 +1,10 @@
 import 'dart:async';
+import 'package:app/src/sigmund/entity/projeto.dart';
+import 'package:app/src/sigmund/helper/perfil-helper.dart';
+import 'package:app/src/sigmund/resource/perfil.dart';
 import 'package:app/src/sigmund/resource/questionario.dart';
+import 'package:app/src/sigmund/service/projeto-service.dart';
 import 'package:app/src/sigmund/ultil/constantes.dart';
-import 'package:app/src/sigmund/view/paginaInicial/pagina-inicial-page.dart';
 import 'package:app/src/sigmund/view/perfil/visualizar-perfil-page.dart';
 import 'package:app/src/sigmund/view/quiz/quiz-page.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +12,9 @@ import 'package:flutter/rendering.dart';
 
 class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin {
   final GlobalKey<AnimatedListState> _listKey = GlobalKey();
+  Projeto projeto;
+  QuizState({this.projeto});
+
   //controller da animação
   bool _animationController;
   //Lista para animação

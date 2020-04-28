@@ -7,12 +7,10 @@ import 'package:app/src/sigmund/view/participarprojeto/participar-projeto-page.d
 import 'package:app/src/sigmund/view/quiz/quiz-page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class PaginaInicialState extends State<PaginaInicialPage>{
 
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  String test;
 
   void initState(){
     super.initState();
@@ -37,7 +35,7 @@ class PaginaInicialState extends State<PaginaInicialPage>{
 Column colunaInicial () =>Column(
   mainAxisSize: MainAxisSize.max,
   mainAxisAlignment: MainAxisAlignment.center,
-  children: <Widget>[LogoImage(height: 0.4,),Padding(padding: EdgeInsets.only(top: 100),child: _startButtons(),)
+  children: <Widget>[LogoImage(height: 0.4,), Spacer(),_startButtons(),
   ],
 );
 
@@ -48,10 +46,14 @@ Column colunaInicial () =>Column(
    _paddingBotoes(),
    StartButton(onPressed: _redirecionarPagina,texto: "Iniciar Questionário",),
    _paddingBotoes(),
-   StartButton(onPressed: _redirecionarPagina,texto: "Método Disc",)],);
+   Padding(
+     padding: const EdgeInsets.only(bottom: 10),
+     child: StartButton(onPressed: _redirecionarPagina,texto: "Método Disc",),
+   )],);
 
-_redirecionarPagina()=>
-    Get.to(QuizPage());
+_redirecionarPagina()=>Navigator.of(context).pushAndRemoveUntil(
+  MaterialPageRoute(builder: (context) => QuizPage()),
+  (page) => false);
 
 
 Padding _paddingBotoes()=>Padding(padding:EdgeInsets.only(top: 20));
