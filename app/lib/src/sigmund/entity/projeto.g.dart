@@ -10,7 +10,7 @@ Projeto _$ProjetoFromJson(Map<String, dynamic> json) {
   return Projeto(
     chaveProjeto: json['chaveProjeto'] as String,
     email: json['email'] as String,
-    answers: (json['answers'] as List)?.map((e) => e as int)?.toList(),
+    answers: (json['answers'] as List)?.map((e) => e as String)?.toList(),
     nameStudent: json['nameStudent'] as String,
     profile: json['profile'] as String,
   );

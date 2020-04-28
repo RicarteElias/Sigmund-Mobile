@@ -12,11 +12,13 @@ class ParticiparProjetoState extends State<ParticiparProjetoPage>{
   final _nomAlunoController= TextEditingController();
   final _chaveProjetoController= TextEditingController();
   ProjetoService _projetoService= new ProjetoService();
+   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       body: Container(
         decoration: Constantes.BACKGROUND_GRADIENTE,
         child: formulario(),
@@ -82,18 +84,34 @@ class ParticiparProjetoState extends State<ParticiparProjetoPage>{
   _labelStyle()=>TextStyle(color: Colors.white,fontSize: 15);
 
   _iniciarQuestionario(){
-    Projeto projeto = Projeto(nameStudent:_nomAlunoController.text,email: _emailController.text, chaveProjeto: _chaveProjetoController.text);
+    Projeto projeto = Projeto(nameStudent:_nomAlunoController.text.trim(),email: _emailController.text.trim(), chaveProjeto: _chaveProjetoController.text.trim());
     projeto.profile = "Analista";
-    projeto.answers=[1,1,1,1,1,1,1,1,1,1,1,1];
-    //_projetoService.salvarProjeto(projeto);
-    print(projeto.toJson());
+    projeto.answers=['1','1','1','1','1','1','1','1','1','1','1','1'];
 
-    Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(builder: (context) => QuizPage(projeto:
-      projeto,)),
-          (page) => false);
+    try{
+      _projetoService.participarProjeto(projeto);
+      }catch(e){
+        print(e);
+        _apresentarMensagem(mensagem:e.toString(),background: Colors.red);
+    }
+
+    //Navigator.of(context).pushAndRemoveUntil(
+      //MaterialPageRoute(builder: (context) => QuizPage(projeto:
+      //projeto,)),
+        //  (page) => false);
   }
-
+ void _apresentarMensagem( {String mensagem, Color background}) {
+    _scaffoldKey.currentState.showSnackBar(SnackBar(
+      content: Text(
+        mensagem,
+        style: TextStyle(
+          color: Colors.white,
+        ),
+      ),
+      duration: Duration(seconds: Constantes.TIME_MESSAGE),
+      backgroundColor: background,
+    ));
+  }
 
 
 }

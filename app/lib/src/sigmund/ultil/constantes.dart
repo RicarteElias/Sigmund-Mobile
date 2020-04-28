@@ -15,6 +15,7 @@ class Constantes {
   static const String IMAGE_COMUNICADOR = "assets/perfis/comunicador.png";
   static const String IMAGE_EXECUTOR = "assets/perfis/executor.png";
   static const String IMAGE_PLANEJADOR= "assets/perfis/planejador.png";
+  static const int TIME_MESSAGE = 3;
 
 
   //Widgets

@@ -12,7 +12,7 @@ class Projeto{
   String email;
   String chaveProjeto;
   String profile;
-  List<int> answers;
+  List<String> answers;
 
   Projeto({this.chaveProjeto,this.email,this.answers,this.nameStudent,this.profile});
 

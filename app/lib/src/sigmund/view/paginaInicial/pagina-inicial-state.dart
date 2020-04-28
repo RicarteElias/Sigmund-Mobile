@@ -47,7 +47,7 @@ Column colunaInicial () =>Column(
    StartButton(onPressed: _redirecionarPagina,texto: "Iniciar Questionário",),
    _paddingBotoes(),
    Padding(
-     padding: const EdgeInsets.only(bottom: 10),
+     padding: const EdgeInsets.only(bottom: 50),
      child: StartButton(onPressed: _redirecionarPagina,texto: "Método Disc",),
    )],);
 
@@ -65,4 +65,7 @@ _callQrCodeScan() async {
   _iniciarProjeto()=>Navigator.of(context).pushAndRemoveUntil(
       MaterialPageRoute(builder: (context) => ParticiparProjetoPage()),
           (page) => false);
+
+
+          
 }
