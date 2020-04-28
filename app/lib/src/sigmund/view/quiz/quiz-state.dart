@@ -1,9 +1,8 @@
 import 'dart:async';
 import 'package:app/src/sigmund/entity/projeto.dart';
-import 'package:app/src/sigmund/helper/perfil-helper.dart';
-import 'package:app/src/sigmund/resource/perfil.dart';
-import 'package:app/src/sigmund/resource/questionario.dart';
-import 'package:app/src/sigmund/service/projeto-service.dart';
+import 'package:app/src/sigmund/resource/questionario-disc.dart';
+import 'package:app/src/sigmund/resource/questionario-sigmund.dart';
+import 'package:app/src/sigmund/resource/tipo-quiz.dart';
 import 'package:app/src/sigmund/ultil/constantes.dart';
 import 'package:app/src/sigmund/view/perfil/visualizar-perfil-page.dart';
 import 'package:app/src/sigmund/view/quiz/quiz-page.dart';
@@ -13,24 +12,33 @@ import 'package:flutter/rendering.dart';
 class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin {
   final GlobalKey<AnimatedListState> _listKey = GlobalKey();
   Projeto projeto;
-  QuizState({this.projeto});
+  TipoQuiz tipoQuiz;
+  static var _questionario;
 
   //controller da animação
   bool _animationController;
   //Lista para animação
-  List<String> _listaAnimada = Questionario().questionario[0]['respostas'];
+  List<String> _listaAnimada = _questionario[0]['respostas'];
   //Lista com as respostas
-  List<String> _novasRespostas = Questionario().questionario[1]['respostas'];
+  List<String> _novasRespostas = _questionario[1]['respostas'];
   //Texto da pergunta
-  String novaPergunta =
-      Questionario().questionario[0]['pergunta'].toString() + "...";
+  String novaPergunta = _questionario[0]['pergunta'].toString() + "...";
   //controller da questão
   int _questaoController = 1;
   //controller pra impedir double tap na lista
   bool _isButtonTapped = false;
-  //lista com o numero de escolhas
+  //lista com o número de escolhas
   var qtdeRespostas = [0, 0, 0, 0];
   bool _fadeTransitionController = true;
+
+  //Construtor
+   QuizState({this.projeto,this.tipoQuiz}){
+     if(tipoQuiz==TipoQuiz.sigmund){
+      _questionario = QuestionarioSigmund().questionario;
+     }else{
+       _questionario = QuestionarioDisc().questionario;
+     }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -131,15 +139,16 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin {
     }
     _questaoController++;
     _questaoController == 25
+        // igngitore: unnecessary_statements
         ? null
         : _novasRespostas =
-            Questionario().questionario[_questaoController]['respostas'];
+            QuestionarioDisc().questionario[_questaoController]['respostas'];
     _questaoController == 24
-        ? novaPergunta = Questionario()
+        ? novaPergunta = QuestionarioDisc()
         .questionario[_questaoController -1]['pergunta']
         .toString() +
         "..."
-        : novaPergunta = Questionario()
+        : novaPergunta = QuestionarioDisc()
                 .questionario[_questaoController-1]['pergunta']
                 .toString() +
             "...";

@@ -1,0 +1,4 @@
+enum TipoQuiz{
+sigmund,
+disc
+}

@@ -60,11 +60,19 @@ Padding _paddingBotoes()=>Padding(padding:EdgeInsets.only(top: 20));
 
 _callQrCodeScan() async {
   QrCodeScanner().scan().then((returnScan){
-    print(returnScan);});
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (context) => ParticiparProjetoPage(chaveProjeto: _chaveProjeto(returnScan),)),
+          (page) => false);});
   }
   _iniciarProjeto()=>Navigator.of(context).pushAndRemoveUntil(
       MaterialPageRoute(builder: (context) => ParticiparProjetoPage()),
           (page) => false);
+
+String _chaveProjeto(String url){
+  int i = url.lastIndexOf('=');
+  String retorno = url.substring(i,url.length);
+  return retorno;
+}
 
 
           

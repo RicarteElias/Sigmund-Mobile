@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:app/src/sigmund/entity/projeto.dart';
 import 'package:dio/dio.dart';
 
+import 'exceptions/projeto-exception.dart';
+
 
 class ProjetoService {
 
@@ -27,9 +29,10 @@ Dio dio = new Dio();
     response = await dio.post("/students", data:projeto.toJson());
     print(response.data.toString());
     }else{
-       throw resposta['warning'];
-    } 
      
+    throw ProjetoException(resposta['warning']);
+    
+    }
   }
 
 }

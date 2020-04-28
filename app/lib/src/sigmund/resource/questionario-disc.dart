@@ -1,4 +1,4 @@
-class Questionario {
+class QuestionarioDisc {
   ///Lista de questões usadas no método disk.
   /// Lista Map onde cada posição da lisa refere-se a uma pergunta,
   /// key de nome 'pergunta' possui como value pegunta,

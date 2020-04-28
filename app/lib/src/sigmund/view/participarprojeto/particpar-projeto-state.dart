@@ -1,19 +1,34 @@
 import 'package:app/src/sigmund/entity/projeto.dart';
 import 'package:app/src/sigmund/service/projeto-service.dart';
 import 'package:app/src/sigmund/ultil/constantes.dart';
+import 'package:app/src/sigmund/ultil/data-utils.dart';
 import 'package:app/src/sigmund/view/componentes/botao-pagina-inicial.dart';
 import 'package:app/src/sigmund/view/participarprojeto/participar-projeto-page.dart';
-import 'package:app/src/sigmund/view/quiz/quiz-page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ParticiparProjetoState extends State<ParticiparProjetoPage>{
+
+  String chaveProjeto;
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
+  //controllers
   final _emailController=TextEditingController();
   final _nomAlunoController= TextEditingController();
   final _chaveProjetoController= TextEditingController();
-  ProjetoService _projetoService= new ProjetoService();
-   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
+  ProjetoService _projetoService= new ProjetoService();
+   
+   //Construtor
+   ParticiparProjetoState({this.chaveProjeto});
+  
+  @override
+  void initState() {
+    if(DataUtils.isNotEmpty(this.chaveProjeto)){
+      _chaveProjetoController.text = chaveProjeto;
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -85,22 +100,19 @@ class ParticiparProjetoState extends State<ParticiparProjetoPage>{
 
   _iniciarQuestionario(){
     Projeto projeto = Projeto(nameStudent:_nomAlunoController.text.trim(),email: _emailController.text.trim(), chaveProjeto: _chaveProjetoController.text.trim());
-    projeto.profile = "Analista";
-    projeto.answers=['1','1','1','1','1','1','1','1','1','1','1','1'];
-
-    try{
-      _projetoService.participarProjeto(projeto);
-      }catch(e){
-        print(e);
-        _apresentarMensagem(mensagem:e.toString(),background: Colors.red);
-    }
-
-    //Navigator.of(context).pushAndRemoveUntil(
+      _projetoService.participarProjeto(projeto).then((onValue){
+      //Navigator.of(context).pushAndRemoveUntil(
       //MaterialPageRoute(builder: (context) => QuizPage(projeto:
       //projeto,)),
         //  (page) => false);
+      }).catchError((erro){
+        _apresentarMensagem(mensagem: erro.mensagem,background: Colors.red);
+      });
+     
+    
   }
- void _apresentarMensagem( {String mensagem, Color background}) {
+
+  _apresentarMensagem( {String mensagem, Color background}) {
     _scaffoldKey.currentState.showSnackBar(SnackBar(
       content: Text(
         mensagem,
