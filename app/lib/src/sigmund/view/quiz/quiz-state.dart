@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:app/src/sigmund/entity/projeto.dart';
+import 'package:app/src/sigmund/helper/perfil-helper.dart';
+import 'package:app/src/sigmund/resource/perfil.dart';
 import 'package:app/src/sigmund/resource/questionario-disc.dart';
 import 'package:app/src/sigmund/resource/questionario-sigmund.dart';
 import 'package:app/src/sigmund/resource/tipo-quiz.dart';
@@ -18,23 +20,24 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin {
   static var _questionario;
   ProjetoService _projetoService = ProjetoService();
 
-  //controller da animação
-  bool _animationController;
-  //Lista para animação
-  List<String> _listaAnimada;
-  //Lista com as respostas
-  List<String> _novasRespostas;
-  //Texto da pergunta
-  String _novaPergunta;
-  //controller da questão
-  int _questaoController = 1;
-  //controller pra impedir double tap na lista
-  bool _isButtonTapped = false;
-  //lista com o número de escolhas
-  var _qtdeRespostas = [0, 0, 0, 0];
-  bool _fadeTransitionController = true;
-  //lista com as respostas
-  List<String> _respostas = List<String>();
+
+  bool _animationController;  //controller da animação
+
+  List<String> _listaAnimada; //Lista para animação
+
+  List<String> _novasRespostas;  //Lista com as respostas
+
+  String _novaPergunta; //Texto da pergunta
+
+  int _questaoController = 1;  //controller da questão
+
+  bool _isButtonTapped = false; //controller pra impedir double tap na lista
+
+  var _qtdeRespostas = [0, 0, 0, 0]; //lista com o número de escolhas
+
+  bool _fadeTransitionController = true;//Controller da transição da pergunta
+
+  List<String> _respostas = List<String>();//lista com as respostas
 
   //Construtor
    QuizState({this.projeto,this.tipoQuiz}){
@@ -198,11 +201,19 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin {
     }
   }
   _redirecionarPagina() {
+     Perfil perfil = PerfilHelper.getPerfil(_qtdeRespostas);
+     if(!(projeto==null)){
+     projeto.answers=_respostas;
+     projeto.profile=PerfilHelper.getNome(perfil);
+     _projetoService.participarProjeto(projeto);
+
+     }
+
      print(_respostas);
     Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(
             builder: (context) => VisualizarPerfilPage(
-                  respostas: _qtdeRespostas,
+                perfil: perfil,
                 )),
         (page) => false);
   }

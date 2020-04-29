@@ -8,12 +8,11 @@ import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class VisualizarPerfilState extends State<VisualizarPerfilPage> {
-  List<int> respostas;
+
   Perfil perfil;
 
-  VisualizarPerfilState({this.respostas}) {
-    this.perfil = PerfilHelper.getPerfil(respostas);
-  }
+  VisualizarPerfilState({this.perfil});
+
 
   @override
   Widget build(BuildContext context) {

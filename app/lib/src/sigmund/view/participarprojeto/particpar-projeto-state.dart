@@ -1,5 +1,6 @@
 import 'package:app/src/sigmund/entity/projeto.dart';
 import 'package:app/src/sigmund/resource/tipo-quiz.dart';
+import 'package:app/src/sigmund/service/exceptions/projeto-exception.dart';
 import 'package:app/src/sigmund/service/projeto-service.dart';
 import 'package:app/src/sigmund/ultil/constantes.dart';
 import 'package:app/src/sigmund/ultil/data-utils.dart';
@@ -8,6 +9,7 @@ import 'package:app/src/sigmund/view/participarprojeto/participar-projeto-page.d
 import 'package:app/src/sigmund/view/quiz/quiz-page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class ParticiparProjetoState extends State<ParticiparProjetoPage>{
 
@@ -18,7 +20,6 @@ class ParticiparProjetoState extends State<ParticiparProjetoPage>{
   final _emailController=TextEditingController();
   final _nomAlunoController= TextEditingController();
   final _chaveProjetoController= TextEditingController();
-
   ProjetoService _projetoService= new ProjetoService();
    
    //Construtor
@@ -44,7 +45,7 @@ class ParticiparProjetoState extends State<ParticiparProjetoPage>{
   }
   Form formulario() => Form(
     child: Container(
-      margin: EdgeInsets.all(30),
+      margin: EdgeInsets.all(13),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
@@ -61,48 +62,52 @@ class ParticiparProjetoState extends State<ParticiparProjetoPage>{
 
   Column componentsFormularioLogin() => Column(children: <Widget>[
     TextFormField(
+      style: _texFormFieldStyle(),
       controller: _nomAlunoController,
       decoration: InputDecoration(
+        prefixIcon: Icon(MdiIcons.face,color: Colors.white,),
         labelStyle: _labelStyle(),
-        labelText: 'Nome',border: OutlineInputBorder(borderSide: BorderSide(color: Colors.white,style: BorderStyle.solid,width: 10),
-  borderRadius: BorderRadius.circular(20),
-  )
+        labelText: 'Nome',border: OutlineInputBorder(borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(style: BorderStyle.solid))
       ),
     ),
     Padding(
       padding: EdgeInsets.only(top: 20),
       child:TextFormField(
+        keyboardType: TextInputType.emailAddress,
+        style:_texFormFieldStyle() ,
         controller:_emailController ,
         decoration: InputDecoration(
+          prefixIcon:Icon(MdiIcons.email,color: Colors.white,) ,
+          focusColor: Colors.white,
           labelStyle: _labelStyle(),
-          labelText: 'E-mail', border: OutlineInputBorder(borderSide: BorderSide(color: Colors.white,style: BorderStyle.solid,width: 10),
-          borderRadius: BorderRadius.circular(20),
-          )
+          labelText: 'E-mail', border: OutlineInputBorder(borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(style: BorderStyle.solid))
         ),
       ),
     ),
     Padding(
       padding: EdgeInsets.only(top: 20),
       child: TextField(
+        keyboardType: TextInputType.visiblePassword,
+        style: _texFormFieldStyle(),
         controller: _chaveProjetoController,
-      decoration: InputDecoration(
+        decoration: InputDecoration(
+        prefixIcon: Icon(MdiIcons.key,color: Colors.white,),
         labelStyle: _labelStyle(),
           labelText: 'Chave projeto',
-          border: OutlineInputBorder(borderSide: BorderSide(
-              color: Colors.white,
-              style: BorderStyle.solid,
-              width: 10),
-        borderRadius: BorderRadius.circular(20),
-        )
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10),borderSide: BorderSide(style: BorderStyle.solid))
       ),
     ),
     ),
-    Padding(padding: EdgeInsets.only(top: 20),child:
+
+    Padding(padding: EdgeInsets.only(top: 100),child:
       StartButton(texto: "Iniciar questionário",onPressed: _iniciarQuestionario,),)
     ],
   );
 
-  _labelStyle()=>TextStyle(color: Colors.white,fontSize: 15);
+  _labelStyle()=>TextStyle(color: Colors.white, fontSize: 20);
+  _texFormFieldStyle()=>TextStyle(color: Colors.white,fontSize: 20);
 
   _iniciarQuestionario(){
     Projeto projeto = Projeto(nameStudent:_nomAlunoController.text.trim(),
@@ -113,7 +118,8 @@ class ParticiparProjetoState extends State<ParticiparProjetoPage>{
       MaterialPageRoute(builder: (context) => QuizPage(projeto:
       projeto,tipoQuiz: TipoQuiz.sigmund,)),(page) => false);
       }).catchError((erro){
-        _apresentarMensagem(mensagem: erro.mensagem,background: Colors.red);
+        ProjetoException e = erro;
+        _apresentarMensagem(mensagem: e.mensagem,background: Colors.red);
       });
     
   }
