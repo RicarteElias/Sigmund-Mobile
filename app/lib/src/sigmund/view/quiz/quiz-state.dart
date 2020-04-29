@@ -34,7 +34,7 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin {
   var _qtdeRespostas = [0, 0, 0, 0];
   bool _fadeTransitionController = true;
   //lista com as respostas
-  List<String> _respostas;
+  List<String> _respostas = List<String>();
 
   //Construtor
    QuizState({this.projeto,this.tipoQuiz}){
@@ -156,14 +156,12 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin {
         // ignore: unnecessary_statements
         ? null
         : _novasRespostas =
-            QuestionarioDisc().questionario[_questaoController]['respostas'];
+            _questionario[_questaoController]['respostas'];
     _questaoController == DataUtils.sizeOfList(_questionario)-1
-        ? _novaPergunta = QuestionarioDisc()
-        .questionario[_questaoController -1]['pergunta']
+        ? _novaPergunta = _questionario[_questaoController -1]['pergunta']
         .toString() +
         "..."
-        : _novaPergunta = QuestionarioDisc()
-                .questionario[_questaoController-1]['pergunta']
+        : _novaPergunta = _questionario[_questaoController-1]['pergunta']
                 .toString() +
             "...";
    }
