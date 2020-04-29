@@ -6,8 +6,7 @@ import 'package:flutter/cupertino.dart';
 class VisualizarPerfilPage extends StatefulWidget{
   Perfil perfil;
 
-  VisualizarPerfilPage({this.perfil}){
-  }
+  VisualizarPerfilPage({this.perfil});
 
   State<StatefulWidget> createState()=>VisualizarPerfilState(perfil:perfil);
 }

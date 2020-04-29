@@ -65,6 +65,7 @@ Padding _paddingBotoes()=>Padding(padding:EdgeInsets.only(top: 20));
 
 _callQrCodeScan() async {
   QrCodeScanner().scan().then((returnScan){
+    print(_chaveProjeto(returnScan));
     Navigator.of(context).pushAndRemoveUntil(
       MaterialPageRoute(builder: (context) => ParticiparProjetoPage(chaveProjeto: _chaveProjeto(returnScan),)),
           (page) => false);});
@@ -75,10 +76,8 @@ _callQrCodeScan() async {
 
 String _chaveProjeto(String url){
   int i = url.lastIndexOf('=');
+  i++;
   String retorno = url.substring(i,url.length);
   return retorno;
 }
-
-
-          
 }

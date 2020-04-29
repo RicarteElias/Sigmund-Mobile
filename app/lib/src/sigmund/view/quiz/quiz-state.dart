@@ -204,11 +204,10 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin {
   }
   _redirecionarPagina() {
      Perfil perfil = PerfilHelper.getPerfil(_qtdeRespostas);
-     if(!(projeto==null)){
+     if(projeto!=null){
      projeto.answers=_respostas;
      projeto.profile=PerfilHelper.getNome(perfil);
      _projetoService.participarProjeto(projeto);
-
      }
 
      print(_respostas);

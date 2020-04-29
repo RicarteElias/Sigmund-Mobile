@@ -32,6 +32,7 @@ class ProjetoService {
 
   Future<void> participarProjeto(Projeto projeto) async {
     Response response = await dio.post("/students", data:projeto.toJson());
+    print(projeto);
     print(response.data.toString());
   }
 

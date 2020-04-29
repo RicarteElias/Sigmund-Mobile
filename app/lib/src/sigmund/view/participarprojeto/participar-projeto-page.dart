@@ -7,6 +7,6 @@ class ParticiparProjetoPage extends StatefulWidget{
   ParticiparProjetoPage({this.chaveProjeto});
 
   @override
-  State<StatefulWidget> createState() => ParticiparProjetoState();
+  State<StatefulWidget> createState() => ParticiparProjetoState(chaveProjeto: chaveProjeto);
 
 }

@@ -21,6 +21,7 @@ class ParticiparProjetoState extends State<ParticiparProjetoPage>{
   final _nomAlunoController= TextEditingController();
   final _chaveProjetoController= TextEditingController();
   ProjetoService _projetoService= new ProjetoService();
+
    
    //Construtor
    ParticiparProjetoState({this.chaveProjeto});
@@ -29,6 +30,7 @@ class ParticiparProjetoState extends State<ParticiparProjetoPage>{
   void initState() {
     if(DataUtils.isNotEmpty(this.chaveProjeto)){
       _chaveProjetoController.text = chaveProjeto;
+      print("teste");
     }
     super.initState();
   }
@@ -101,7 +103,7 @@ class ParticiparProjetoState extends State<ParticiparProjetoPage>{
     ),
     ),
 
-    Padding(padding: EdgeInsets.only(top: 100),child:
+    Padding(padding: EdgeInsets.only(top: MediaQuery.of(context).size.height* 0.10),child:
       StartButton(texto: "Iniciar questionário",onPressed: _iniciarQuestionario,),)
     ],
   );
