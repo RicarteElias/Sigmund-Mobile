@@ -31,10 +31,10 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin {
   //controller pra impedir double tap na lista
   bool _isButtonTapped = false;
   //lista com o número de escolhas
-  var qtdeRespostas = [0, 0, 0, 0];
+  var _qtdeRespostas = [0, 0, 0, 0];
   bool _fadeTransitionController = true;
   //lista com as respostas
-  List<int> _respostas;
+  List<String> _respostas;
 
   //Construtor
    QuizState({this.projeto,this.tipoQuiz}){
@@ -109,7 +109,8 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin {
                   _isButtonTapped = !_isButtonTapped;
                 });
               } else {
-                qtdeRespostas[index]++;
+                _qtdeRespostas[index]++;
+                _respostas.add((index + 1).toString());
                 _redirecionarPagina();
               }
             },
@@ -170,7 +171,10 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin {
   //Método para chamar a próxima pergunta
   _proximaPergunta(index) {
     setState(() => _fadeTransitionController = !_fadeTransitionController);
-    qtdeRespostas[index]++;
+    _qtdeRespostas[index]++;
+    if(tipoQuiz==TipoQuiz.sigmund){
+      _respostas.add((index + 1).toString());
+    }
     _removerRespotas();
     //Timer para sincronizar a animação da lista
     Timer(Duration(milliseconds: 300), () {
@@ -195,15 +199,12 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin {
       _listaAnimada.removeAt(0);
     }
   }
-
   _redirecionarPagina() {
-
-
-
+     print(_respostas);
     Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(
             builder: (context) => VisualizarPerfilPage(
-                  respostas: qtdeRespostas,
+                  respostas: _qtdeRespostas,
                 )),
         (page) => false);
   }

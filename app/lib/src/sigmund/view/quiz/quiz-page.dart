@@ -8,7 +8,7 @@ class QuizPage extends StatefulWidget{
   Projeto projeto;
   TipoQuiz tipoQuiz;
   @override
-  State<StatefulWidget> createState() => QuizState();
+  State<StatefulWidget> createState() => QuizState(tipoQuiz: tipoQuiz);
 
   QuizPage({this.projeto,this.tipoQuiz});
 

@@ -41,20 +41,24 @@ Column colunaInicial () =>Column(
 );
 
  Column _startButtons()=> Column(children: <Widget>[
+   StartButton(onPressed:_callQrCodeScan,texto: "Ler QR Code", ),
+   _paddingBotoes(),
    StartButton(onPressed: _iniciarProjeto,texto: "Participar Projeto",),
    _paddingBotoes(),
-   StartButton(onPressed: _callQrCodeScan,texto: "Ler QR Code",),
-   _paddingBotoes(),
-   StartButton(onPressed: _redirecionarPagina,texto: "Iniciar Questionário",),
+   StartButton(onPressed: _redirecionarQuizSigmund,texto: "Questionário Sigmund",),
    _paddingBotoes(),
    Padding(
      padding: const EdgeInsets.only(bottom: 50),
-     child: StartButton(onPressed: _redirecionarPagina,texto: "Método Disc",),
+     child: StartButton(onPressed: _redirecionarQuizDisc,texto: "Questionário Disc",),
    )],);
 
-_redirecionarPagina()=>Navigator.of(context).pushAndRemoveUntil(
-  MaterialPageRoute(builder: (context) => QuizPage(tipoQuiz: TipoQuiz.disc,)),
-  (page) => false);
+_redirecionarQuizSigmund()=>Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (context) => QuizPage(tipoQuiz: TipoQuiz.sigmund,)),
+          (page) => false);
+
+  _redirecionarQuizDisc()=>Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (context) => QuizPage(tipoQuiz: TipoQuiz.disc,)),
+          (page) => false);
 
 
 Padding _paddingBotoes()=>Padding(padding:EdgeInsets.only(top: 20));

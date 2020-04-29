@@ -11,7 +11,7 @@ class StartButton extends StatelessWidget{
   const StartButton({Key key, this.onPressed, this.texto}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) =>NiceButton(width: MediaQuery.of(context).size.height * 0.30,
+  Widget build(BuildContext context) =>NiceButton(width: MediaQuery.of(context).size.height * 0.50,
     elevation: 8.0,
     radius: 52.0,
     text: texto,
