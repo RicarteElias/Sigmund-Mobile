@@ -17,7 +17,7 @@ class VisualizarPerfilState extends State<VisualizarPerfilPage> {
 
   @override
   Widget  build(BuildContext context) {
-    
+
     ResponsiveWidgets.init(context,
       height: 1920, // Optional
       width: 1080, // Optional
