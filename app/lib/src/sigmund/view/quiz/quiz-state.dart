@@ -59,36 +59,39 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Container(
-            decoration: Constantes.BACKGROUND_GRADIENTE,
-            child: Column(
-              children: <Widget>[
-                SizedBox(
-                    child: Container(
-                  child: Padding(
-                      padding: EdgeInsets.only(top: 40, left: 10),
-                      child: AnimatedOpacity(
-                          opacity: _fadeTransitionController ? 1.0 : 0.0,
-                          duration: Duration(milliseconds: 300),
-                          child: Text(
-                            _novaPergunta,
-                            style: TextStyle(
-                                fontSize: 25,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
-                          ))),
-                )),
-                Flexible(
-                  child: AnimatedList(
-                    shrinkWrap: true,
-                    key: _listKey,
-                    initialItemCount: _listaAnimada.length,
-                    itemBuilder: (context, index, animation) => _buildItem(
-                        context, _listaAnimada[index], animation, index),
+        body: SingleChildScrollView(
+                  child: Container(
+                    height: MediaQuery.of(context).size.height*1,
+              decoration: Constantes.BACKGROUND_GRADIENTE,
+              child: Column(
+                children: <Widget>[
+                  SizedBox(
+                      child: Container(
+                    child: Padding(
+                        padding: EdgeInsets.only(top: 40, left: 10),
+                        child: AnimatedOpacity(
+                            opacity: _fadeTransitionController ? 1.0 : 0.0,
+                            duration: Duration(milliseconds: 300),
+                            child: Text(
+                              _novaPergunta,
+                              style: TextStyle(
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ))),
+                  )),
+                  Flexible(
+                    child: AnimatedList(
+                      shrinkWrap: true,
+                      key: _listKey,
+                      initialItemCount: _listaAnimada.length,
+                      itemBuilder: (context, index, animation) => _buildItem(
+                          context, _listaAnimada[index], animation, index),
+                    ),
                   ),
-                ),
-              ],
-            )));
+                ],
+              )),
+        ));
   }
 
   //Builder da lista
@@ -118,7 +121,7 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin {
               }
             },
             child: SizedBox(
-              height: MediaQuery.of(context).size.height*0.10,
+              height: MediaQuery.of(context).size.height*0.16,
               child: Container(
                   //Text(item,style: textStyle,)
                   decoration: BoxDecoration(
