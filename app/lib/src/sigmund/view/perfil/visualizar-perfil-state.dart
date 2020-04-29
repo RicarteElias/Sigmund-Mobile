@@ -6,6 +6,7 @@ import 'package:app/src/sigmund/view/perfil/visualizar-perfil-page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:responsive_widgets/responsive_widgets.dart';
 
 class VisualizarPerfilState extends State<VisualizarPerfilPage> {
 
@@ -15,9 +16,17 @@ class VisualizarPerfilState extends State<VisualizarPerfilPage> {
 
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        body: Container(
+  Widget  build(BuildContext context) {
+    
+    ResponsiveWidgets.init(context,
+      height: 1920, // Optional
+      width: 1080, // Optional
+      allowFontScaling: true, // Optional
+    );
+    return  ResponsiveWidgets.builder(
+        // Optional
+        child:Scaffold(
+          body: Container(
             decoration: Constantes.BACKGROUND_GRADIENTE,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -38,7 +47,7 @@ class VisualizarPerfilState extends State<VisualizarPerfilPage> {
                   child: Column(
                     children: <Widget>[
                       Padding(
-                        padding: EdgeInsets.only(top: 25),
+                        padding: EdgeInsetsResponsive.only(top: 25),
                         child: Text(
                           PerfilHelper.getNome(perfil),
                           style: TextStyle(
@@ -60,7 +69,10 @@ class VisualizarPerfilState extends State<VisualizarPerfilPage> {
                         child: Center(
                           child: Text(
                             PerfilHelper.getDescricao(perfil),
-                            style: TextStyle(fontSize: 20, color: Colors.white),
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: ScreenUtil()
+                                    .setSp(50)),
                             textAlign: TextAlign.center,
                           ),
                         ),
@@ -78,7 +90,7 @@ class VisualizarPerfilState extends State<VisualizarPerfilPage> {
           elevation: 10,
           hoverElevation: 5,
           foregroundColor: Colors.white,
-        ));
+        )));
   }
 
   _redirecionarPagina() {

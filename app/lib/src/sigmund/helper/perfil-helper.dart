@@ -62,10 +62,10 @@ class PerfilHelper {
   static String getDescricao(Perfil perfil) {
     switch (perfil) {
       case Perfil.analista:
-        return "Você é uma pessoa detalhista e"
-            "meticulosa, a pessoa analista é organizada,"
-            "responsável e altamente conservadora,"
-            "sendo hábil ao controlar processos e"
+        return "Você é uma pessoa detalhista e "
+            "meticulosa, a pessoa analista é organizada, "
+            "responsável e altamente conservadora, "
+            "sendo hábil ao controlar processos e "
             "rotinas repetitivas.";
       case Perfil.comunicador:
         return "Você é uma pessoa comunicativa e geralmente "
