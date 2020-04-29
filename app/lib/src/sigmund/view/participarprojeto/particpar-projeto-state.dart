@@ -39,9 +39,12 @@ class ParticiparProjetoState extends State<ParticiparProjetoPage>{
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      body: Container(
-        decoration: Constantes.BACKGROUND_GRADIENTE,
-        child: formulario(),
+      body: SingleChildScrollView(
+              child: Container(
+                height: MediaQuery.of(context).size.height *1,
+          decoration: Constantes.BACKGROUND_GRADIENTE,
+          child: formulario(),
+        ),
       ),
     );
   }
@@ -102,9 +105,8 @@ class ParticiparProjetoState extends State<ParticiparProjetoPage>{
       ),
     ),
     ),
-
     Padding(padding: EdgeInsets.only(top: MediaQuery.of(context).size.height* 0.10),child:
-      StartButton(texto: "Iniciar questionário",onPressed: _iniciarQuestionario,),)
+   StartButton(texto: "Iniciar questionário",onPressed: _iniciarQuestionario,),),
     ],
   );
 
@@ -123,7 +125,6 @@ class ParticiparProjetoState extends State<ParticiparProjetoPage>{
         ProjetoException e = erro;
         _apresentarMensagem(mensagem: e.mensagem,background: Colors.red);
       });
-    
   }
 
   _apresentarMensagem( {String mensagem, Color background}) {

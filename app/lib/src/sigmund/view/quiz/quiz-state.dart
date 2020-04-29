@@ -118,7 +118,7 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin {
               }
             },
             child: SizedBox(
-              height: MediaQuery.of(context).size.height*0.15,
+              height: MediaQuery.of(context).size.height*0.10,
               child: Container(
                   //Text(item,style: textStyle,)
                   decoration: BoxDecoration(
