@@ -1,3 +1,4 @@
+import 'package:app/src/sigmund/resource/tipo-quiz.dart';
 import 'package:app/src/sigmund/ultil/componentes/qr-code.dart';
 import 'package:app/src/sigmund/ultil/constantes.dart';
 import 'package:app/src/sigmund/view/componentes/botao-pagina-inicial.dart';
@@ -52,7 +53,7 @@ Column colunaInicial () =>Column(
    )],);
 
 _redirecionarPagina()=>Navigator.of(context).pushAndRemoveUntil(
-  MaterialPageRoute(builder: (context) => QuizPage()),
+  MaterialPageRoute(builder: (context) => QuizPage(tipoQuiz: TipoQuiz.disc,)),
   (page) => false);
 
 

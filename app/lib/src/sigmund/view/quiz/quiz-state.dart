@@ -3,7 +3,9 @@ import 'package:app/src/sigmund/entity/projeto.dart';
 import 'package:app/src/sigmund/resource/questionario-disc.dart';
 import 'package:app/src/sigmund/resource/questionario-sigmund.dart';
 import 'package:app/src/sigmund/resource/tipo-quiz.dart';
+import 'package:app/src/sigmund/service/projeto-service.dart';
 import 'package:app/src/sigmund/ultil/constantes.dart';
+import 'package:app/src/sigmund/ultil/data-utils.dart';
 import 'package:app/src/sigmund/view/perfil/visualizar-perfil-page.dart';
 import 'package:app/src/sigmund/view/quiz/quiz-page.dart';
 import 'package:flutter/material.dart';
@@ -14,15 +16,16 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin {
   Projeto projeto;
   TipoQuiz tipoQuiz;
   static var _questionario;
+  ProjetoService _projetoService = ProjetoService();
 
   //controller da animação
   bool _animationController;
   //Lista para animação
-  List<String> _listaAnimada = _questionario[0]['respostas'];
+  List<String> _listaAnimada;
   //Lista com as respostas
-  List<String> _novasRespostas = _questionario[1]['respostas'];
+  List<String> _novasRespostas;
   //Texto da pergunta
-  String novaPergunta = _questionario[0]['pergunta'].toString() + "...";
+  String _novaPergunta;
   //controller da questão
   int _questaoController = 1;
   //controller pra impedir double tap na lista
@@ -30,6 +33,8 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin {
   //lista com o número de escolhas
   var qtdeRespostas = [0, 0, 0, 0];
   bool _fadeTransitionController = true;
+  //lista com as respostas
+  List<int> _respostas;
 
   //Construtor
    QuizState({this.projeto,this.tipoQuiz}){
@@ -38,6 +43,14 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin {
      }else{
        _questionario = QuestionarioDisc().questionario;
      }
+  }
+
+  @override
+  void initState() {
+    _novaPergunta = _questionario[0]['pergunta'].toString() + "...";
+    _listaAnimada =  _questionario[0]['respostas'];
+    _novasRespostas =  _questionario[1]['respostas'];
+    super.initState();
   }
 
   @override
@@ -55,7 +68,7 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin {
                           opacity: _fadeTransitionController ? 1.0 : 0.0,
                           duration: Duration(milliseconds: 300),
                           child: Text(
-                            novaPergunta,
+                            _novaPergunta,
                             style: TextStyle(
                                 fontSize: 25,
                                 fontWeight: FontWeight.bold,
@@ -89,7 +102,7 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin {
               : Alignment.centerLeft,
           child: GestureDetector(
             onTap: () {
-              if (_questaoController < 25) {
+              if (_questaoController < DataUtils.sizeOfList(_questionario)) {
                 // ignore: unnecessary_statements
                 _isButtonTapped ? null : _proximaPergunta(index);
                 setState(() {
@@ -138,22 +151,21 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin {
       _listKey.currentState.insertItem(0);
     }
     _questaoController++;
-    _questaoController == 25
-        // igngitore: unnecessary_statements
+    _questaoController == DataUtils.sizeOfList(_questionario)
+        // ignore: unnecessary_statements
         ? null
         : _novasRespostas =
             QuestionarioDisc().questionario[_questaoController]['respostas'];
-    _questaoController == 24
-        ? novaPergunta = QuestionarioDisc()
+    _questaoController == DataUtils.sizeOfList(_questionario)-1
+        ? _novaPergunta = QuestionarioDisc()
         .questionario[_questaoController -1]['pergunta']
         .toString() +
         "..."
-        : novaPergunta = QuestionarioDisc()
+        : _novaPergunta = QuestionarioDisc()
                 .questionario[_questaoController-1]['pergunta']
                 .toString() +
             "...";
-
-  }
+   }
 
   //Método para chamar a próxima pergunta
   _proximaPergunta(index) {
@@ -185,6 +197,9 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin {
   }
 
   _redirecionarPagina() {
+
+
+
     Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(
             builder: (context) => VisualizarPerfilPage(

@@ -21,7 +21,6 @@ class DataUtils {
   }
 
 
-
   static String toUpperCase(String text) {
     if (text == null) return "";
     return text.toUpperCase();

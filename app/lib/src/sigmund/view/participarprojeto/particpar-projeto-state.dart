@@ -1,9 +1,11 @@
 import 'package:app/src/sigmund/entity/projeto.dart';
+import 'package:app/src/sigmund/resource/tipo-quiz.dart';
 import 'package:app/src/sigmund/service/projeto-service.dart';
 import 'package:app/src/sigmund/ultil/constantes.dart';
 import 'package:app/src/sigmund/ultil/data-utils.dart';
 import 'package:app/src/sigmund/view/componentes/botao-pagina-inicial.dart';
 import 'package:app/src/sigmund/view/participarprojeto/participar-projeto-page.dart';
+import 'package:app/src/sigmund/view/quiz/quiz-page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -85,7 +87,11 @@ class ParticiparProjetoState extends State<ParticiparProjetoPage>{
         controller: _chaveProjetoController,
       decoration: InputDecoration(
         labelStyle: _labelStyle(),
-          labelText: 'Chave projeto',border: OutlineInputBorder(borderSide: BorderSide(color: Colors.white,style: BorderStyle.solid,width: 10),
+          labelText: 'Chave projeto',
+          border: OutlineInputBorder(borderSide: BorderSide(
+              color: Colors.white,
+              style: BorderStyle.solid,
+              width: 10),
         borderRadius: BorderRadius.circular(20),
         )
       ),
@@ -99,16 +105,16 @@ class ParticiparProjetoState extends State<ParticiparProjetoPage>{
   _labelStyle()=>TextStyle(color: Colors.white,fontSize: 15);
 
   _iniciarQuestionario(){
-    Projeto projeto = Projeto(nameStudent:_nomAlunoController.text.trim(),email: _emailController.text.trim(), chaveProjeto: _chaveProjetoController.text.trim());
-      _projetoService.participarProjeto(projeto).then((onValue){
-      //Navigator.of(context).pushAndRemoveUntil(
-      //MaterialPageRoute(builder: (context) => QuizPage(projeto:
-      //projeto,)),
-        //  (page) => false);
+    Projeto projeto = Projeto(nameStudent:_nomAlunoController.text.trim(),
+        email: _emailController.text.trim(),
+        chaveProjeto: _chaveProjetoController.text.trim());
+      _projetoService.validarParticipacao(projeto).then((onValue){
+      Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (context) => QuizPage(projeto:
+      projeto,tipoQuiz: TipoQuiz.sigmund,)),(page) => false);
       }).catchError((erro){
         _apresentarMensagem(mensagem: erro.mensagem,background: Colors.red);
       });
-     
     
   }
 
