@@ -212,8 +212,6 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin {
      projeto.profile=PerfilHelper.getNome(perfil);
      _projetoService.participarProjeto(projeto);
      }
-
-     print(_respostas);
     Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(
             builder: (context) => VisualizarPerfilPage(

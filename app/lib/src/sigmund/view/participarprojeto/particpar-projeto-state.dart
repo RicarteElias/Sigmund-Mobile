@@ -15,12 +15,14 @@ class ParticiparProjetoState extends State<ParticiparProjetoPage>{
 
   String chaveProjeto;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  GlobalKey<FormState> _formKey = new GlobalKey();
 
   //controllers
   final _emailController=TextEditingController();
   final _nomAlunoController= TextEditingController();
   final _chaveProjetoController= TextEditingController();
   ProjetoService _projetoService= new ProjetoService();
+  bool _validate = false;
 
    
    //Construtor
@@ -42,13 +44,15 @@ class ParticiparProjetoState extends State<ParticiparProjetoPage>{
       body: SingleChildScrollView(
               child: Container(
                 height: MediaQuery.of(context).size.height *1,
-          decoration: Constantes.BACKGROUND_GRADIENTE,
-          child: formulario(),
+                decoration: Constantes.BACKGROUND_GRADIENTE,
+                child: formulario(),
         ),
       ),
     );
   }
   Form formulario() => Form(
+    key: _formKey,
+    autovalidate: _validate,
     child: Container(
       margin: EdgeInsets.all(13),
       child: Column(
@@ -67,6 +71,7 @@ class ParticiparProjetoState extends State<ParticiparProjetoPage>{
 
   Column componentsFormularioLogin() => Column(children: <Widget>[
     TextFormField(
+      validator: _validarNome,
       style: _texFormFieldStyle(),
       controller: _nomAlunoController,
       decoration: InputDecoration(
@@ -79,6 +84,7 @@ class ParticiparProjetoState extends State<ParticiparProjetoPage>{
     Padding(
       padding: EdgeInsets.only(top: 20),
       child:TextFormField(
+        validator:_validarEmail,
         keyboardType: TextInputType.emailAddress,
         style:_texFormFieldStyle() ,
         controller:_emailController ,
@@ -93,7 +99,7 @@ class ParticiparProjetoState extends State<ParticiparProjetoPage>{
     ),
     Padding(
       padding: EdgeInsets.only(top: 20),
-      child: TextField(
+      child: TextFormField(
         keyboardType: TextInputType.visiblePassword,
         style: _texFormFieldStyle(),
         controller: _chaveProjetoController,
@@ -106,7 +112,7 @@ class ParticiparProjetoState extends State<ParticiparProjetoPage>{
     ),
     ),
     Padding(padding: EdgeInsets.only(top: MediaQuery.of(context).size.height* 0.10),child:
-   StartButton(texto: "Iniciar questionário",onPressed: _iniciarQuestionario,),),
+   StartButton(texto: "Iniciar questionário",onPressed: _validarCampos,),),
     ],
   );
 
@@ -139,6 +145,38 @@ class ParticiparProjetoState extends State<ParticiparProjetoPage>{
       backgroundColor: background,
     ));
   }
+ 
+
+String _validarEmail(String value) {
+    String pattern = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+    RegExp regExp = new RegExp(pattern);
+    if (value.length == 0) {
+      return "Informe o Email";
+    } else if(!regExp.hasMatch(value)){
+      return "Email inválido";
+    }else {
+      return null;
+    }
+  }
+  String _validarNome(String value) {
+    String pattern = r'(^[a-zA-Z ]*$)';
+    RegExp regExp = new RegExp(pattern);
+    if (value.length == 0) {
+      return "Informe o nome";
+    } else if (!regExp.hasMatch(value)) {
+      return "O nome deve conter caracteres de a-z ou A-Z";
+    }
+    return null;
+  }
 
 
+  _validarCampos(){
+    if (_formKey.currentState.validate()) {
+    _iniciarQuestionario();
+    } else {
+      setState(() {
+        _validate = true;
+      });
+    }
+  }
 }

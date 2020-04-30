@@ -1,7 +1,7 @@
 import 'dart:math';
 import 'package:app/src/sigmund/resource/perfil.dart';
 import 'package:app/src/sigmund/ultil/constantes.dart';
-
+//Clase para auxiliar ao trabalhar com o Enum do perfil
 class PerfilHelper {
   static Perfil getPerfil(List<int> respostas) {
     respostas[0] = respostas[0] * 4;
