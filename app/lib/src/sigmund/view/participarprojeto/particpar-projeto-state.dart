@@ -32,7 +32,7 @@ class ParticiparProjetoState extends State<ParticiparProjetoPage>{
   void initState() {
     if(DataUtils.isNotEmpty(this.chaveProjeto)){
       _chaveProjetoController.text = chaveProjeto;
-      print("teste");
+      
     }
     super.initState();
   }

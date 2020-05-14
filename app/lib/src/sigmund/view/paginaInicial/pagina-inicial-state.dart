@@ -1,11 +1,11 @@
 import 'package:app/src/sigmund/resource/tipo-quiz.dart';
-import 'package:app/src/sigmund/ultil/componentes/qr-code.dart';
 import 'package:app/src/sigmund/ultil/constantes.dart';
 import 'package:app/src/sigmund/view/componentes/botao-pagina-inicial.dart';
 import 'package:app/src/sigmund/view/componentes/logo-image.dart';
 import 'package:app/src/sigmund/view/paginaInicial/pagina-inicial-page.dart';
 import 'package:app/src/sigmund/view/participarprojeto/participar-projeto-page.dart';
 import 'package:app/src/sigmund/view/quiz/quiz-page.dart';
+import 'package:barcode_scan/platform_wrapper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -41,11 +41,11 @@ Column colunaInicial () =>Column(
 );
 
  Column _startButtons()=> Column(children: <Widget>[
-   StartButton(onPressed:_callQrCodeScan,texto: "Ler QR Code", ),
+   StartButton(onPressed:()=>_callQrCodeScan(),texto: "Ler QR Code", ),
    _paddingBotoes(),
-   StartButton(onPressed: _iniciarProjeto,texto: "Participar Projeto",),
+   StartButton(onPressed:()=>_iniciarProjeto(null),texto: "Participar Projeto",),
    _paddingBotoes(),
-   StartButton(onPressed: _redirecionarQuizSigmund,texto: "Questionário Sigmund",),
+   StartButton(onPressed:()=> _redirecionarQuizSigmund(),texto: "Questionário Sigmund",),
    _paddingBotoes(),
    Padding(
      padding: const EdgeInsets.only(bottom: 50),
@@ -64,14 +64,13 @@ _redirecionarQuizSigmund()=>Navigator.of(context).pushAndRemoveUntil(
 Padding _paddingBotoes()=>Padding(padding:EdgeInsets.only(top: 20));
 
 _callQrCodeScan() async {
-  QrCodeScanner().scan().then((returnScan){
-    print(_chaveProjeto(returnScan));
-    Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(builder: (context) => ParticiparProjetoPage(chaveProjeto: _chaveProjeto(returnScan),)),
-          (page) => false);});
+    var result = await BarcodeScanner.scan();
+    _iniciarProjeto(_chaveProjeto(result.rawContent));
+
   }
-  _iniciarProjeto()=>Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(builder: (context) => ParticiparProjetoPage()),
+
+_iniciarProjeto(String chave)=>Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (context) => ParticiparProjetoPage(chaveProjeto: chave,)),
           (page) => false);
 
 String _chaveProjeto(String url){

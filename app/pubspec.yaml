@@ -25,11 +25,11 @@ dependencies:
   nice_button: ^0.1.7
   material_design_icons_flutter: 2.7.94
   flutter_launcher_icons: ^0.7.4
-  qrscan: ^0.2.17
   dio: ^3.0.8
   http: ^0.12.0+1
   responsive_widgets: ^2.0.1
   json_annotation: ^3.0.0
+  barcode_scan: ^3.0.1
 
 
 
