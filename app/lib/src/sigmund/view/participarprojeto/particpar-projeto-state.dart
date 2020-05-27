@@ -159,7 +159,7 @@ String _validarEmail(String value) {
     }
   }
   String _validarNome(String value) {
-    String pattern = r'(^[a-zA-Z ]*$)';
+    String pattern = r'(^[a-zA-Zà-úÀ-Ú ]*$)';
     RegExp regExp = new RegExp(pattern);
     if (value.length == 0) {
       return "Informe o nome";
