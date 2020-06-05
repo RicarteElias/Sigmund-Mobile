@@ -17,9 +17,9 @@ class PaginaInicialState extends State<PaginaInicialPage>{
     super.initState();
   }
 
-  Widget build(BuildContext context)=> buildScaffold();
+  Widget build(BuildContext context)=> _buildScaffold();
 
-  Scaffold buildScaffold()=>
+   _buildScaffold()=>
       Scaffold(
         key:_scaffoldKey,
           body: Center(
@@ -36,7 +36,10 @@ class PaginaInicialState extends State<PaginaInicialPage>{
 Column colunaInicial () =>Column(
   mainAxisSize: MainAxisSize.max,
   mainAxisAlignment: MainAxisAlignment.center,
-  children: <Widget>[LogoImage(height: 0.4,), Spacer(),_startButtons(),
+  children: <Widget>[Padding(
+    padding: const EdgeInsets.only(top:50),
+    child: LogoImage(height: 0.25,),
+  ), Spacer(),_startButtons(),
   ],
 );
 

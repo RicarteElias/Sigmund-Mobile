@@ -5,6 +5,7 @@ import 'package:app/src/sigmund/service/projeto-service.dart';
 import 'package:app/src/sigmund/ultil/constantes.dart';
 import 'package:app/src/sigmund/ultil/data-utils.dart';
 import 'package:app/src/sigmund/view/componentes/botao-pagina-inicial.dart';
+import 'package:app/src/sigmund/view/paginaInicial/pagina-inicial-page.dart';
 import 'package:app/src/sigmund/view/participarprojeto/participar-projeto-page.dart';
 import 'package:app/src/sigmund/view/quiz/quiz-page.dart';
 import 'package:flutter/cupertino.dart';
@@ -39,13 +40,16 @@ class ParticiparProjetoState extends State<ParticiparProjetoPage>{
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      body: SingleChildScrollView(
-              child: Container(
-                height: MediaQuery.of(context).size.height *1,
-                decoration: Constantes.BACKGROUND_GRADIENTE,
-                child: formulario(),
+    return WillPopScope(
+          onWillPop: _onBackPressed,
+          child: Scaffold(
+        key: _scaffoldKey,
+        body: SingleChildScrollView(
+                child: Container(
+                  height: MediaQuery.of(context).size.height *1,
+                  decoration: Constantes.BACKGROUND_GRADIENTE,
+                  child: formulario(),
+          ),
         ),
       ),
     );
@@ -179,4 +183,11 @@ String _validarEmail(String value) {
       });
     }
   }
+
+  Future<bool>_onBackPressed(){
+    return Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => PaginaInicialPage()),
+        (page) => false) ??
+      false;
+      }
 }
