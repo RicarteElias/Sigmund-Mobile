@@ -49,7 +49,7 @@ Column colunaInicial () =>Column(
    _paddingBotoes(),
    Padding(
      padding: const EdgeInsets.only(bottom: 50),
-     child: StartButton(onPressed: _redirecionarQuizDisc,texto: "Questionário Disc",),
+     child: StartButton(onPressed: _redirecionarQuizDisc,texto: "Questionário DISC",),
    )],);
 
 _redirecionarQuizSigmund()=>Navigator.of(context).pushAndRemoveUntil(

@@ -8,6 +8,7 @@ import 'package:app/src/sigmund/resource/tipo-quiz.dart';
 import 'package:app/src/sigmund/service/projeto-service.dart';
 import 'package:app/src/sigmund/ultil/constantes.dart';
 import 'package:app/src/sigmund/ultil/data-utils.dart';
+import 'package:app/src/sigmund/view/paginaInicial/pagina-inicial-page.dart';
 import 'package:app/src/sigmund/view/perfil/visualizar-perfil-page.dart';
 import 'package:app/src/sigmund/view/quiz/quiz-page.dart';
 import 'package:flutter/material.dart';
@@ -58,40 +59,43 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: SingleChildScrollView(
-                  child: Container(
-                    height: MediaQuery.of(context).size.height*1,
-              decoration: Constantes.BACKGROUND_GRADIENTE,
-              child: Column(
-                children: <Widget>[
-                  SizedBox(
-                      child: Container(
-                    child: Padding(
-                        padding: EdgeInsets.only(top: 40, left: 10),
-                        child: AnimatedOpacity(
-                            opacity: _fadeTransitionController ? 1.0 : 0.0,
-                            duration: Duration(milliseconds: 300),
-                            child: Text(
-                              _novaPergunta,
-                              style: TextStyle(
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white),
-                            ))),
-                  )),
-                  Flexible(
-                    child: AnimatedList(
-                      shrinkWrap: true,
-                      key: _listKey,
-                      initialItemCount: _listaAnimada.length,
-                      itemBuilder: (context, index, animation) => _buildItem(
-                          context, _listaAnimada[index], animation, index),
+    return WillPopScope(
+          onWillPop: _onBackPressed,
+          child: Scaffold(
+          body: SingleChildScrollView(
+                    child: Container(
+                      height: MediaQuery.of(context).size.height*1,
+                decoration: Constantes.BACKGROUND_GRADIENTE,
+                child: Column(
+                  children: <Widget>[
+                    SizedBox(
+                        child: Container(
+                      child: Padding(
+                          padding: EdgeInsets.only(top: 40, left: 10),
+                          child: AnimatedOpacity(
+                              opacity: _fadeTransitionController ? 1.0 : 0.0,
+                              duration: Duration(milliseconds: 300),
+                              child: Text(
+                                _novaPergunta,
+                                style: TextStyle(
+                                    fontSize: 25,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
+                              ))),
+                    )),
+                    Flexible(
+                      child: AnimatedList(
+                        shrinkWrap: true,
+                        key: _listKey,
+                        initialItemCount: _listaAnimada.length,
+                        itemBuilder: (context, index, animation) => _buildItem(
+                            context, _listaAnimada[index], animation, index),
+                      ),
                     ),
-                  ),
-                ],
-              )),
-        ));
+                  ],
+                )),
+          )),
+    );
   }
 
   //Builder da lista
@@ -220,4 +224,12 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin {
                 )),
         (page) => false);
   }
+
+ Future<bool>_onBackPressed(){
+    return Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => PaginaInicialPage()),
+        (page) => false) ??
+      false;
+      }
+  
 }

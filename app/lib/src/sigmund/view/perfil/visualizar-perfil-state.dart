@@ -25,72 +25,75 @@ class VisualizarPerfilState extends State<VisualizarPerfilPage> {
     );
     return  ResponsiveWidgets.builder(
         // Optional
-        child:Scaffold(
-          body: Container(
-            decoration: Constantes.BACKGROUND_GRADIENTE,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                SizedBox(
-                    child: Container(
-                  child: Padding(
-                      padding: EdgeInsets.only(top: 40, left: 20),
-                      child: Text(
-                        "O seu perfil é...",
-                        style: TextStyle(
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
-                      )),
-                )),
-                Center(
-                  child: Column(
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsetsResponsive.only(top: 25),
+        child:WillPopScope(
+            onWillPop: _onBackPressed,
+                  child: Scaffold(
+            body: Container(
+              decoration: Constantes.BACKGROUND_GRADIENTE,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  SizedBox(
+                      child: Container(
+                    child: Padding(
+                        padding: EdgeInsets.only(top: 40, left: 20),
                         child: Text(
-                          PerfilHelper.getNome(perfil),
+                          "O seu perfil é...",
                           style: TextStyle(
                               fontSize: 25,
                               fontWeight: FontWeight.bold,
                               color: Colors.white),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 20),
-                        child: SizedBox(
-                          child: Image.asset(PerfilHelper.getImagem(perfil),
-                              height: MediaQuery.of(context).size.height *
-                                  (Perfil.analista == perfil ? 0.22 : 0.3)),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 20, left: 20, right: 20),
-                        child: Center(
+                        )),
+                  )),
+                  Center(
+                    child: Column(
+                      children: <Widget>[
+                        Padding(
+                          padding: EdgeInsetsResponsive.only(top: 25),
                           child: Text(
-                            PerfilHelper.getDescricao(perfil),
+                            PerfilHelper.getNome(perfil),
                             style: TextStyle(
-                                color: Colors.white,
-                                fontSize: ScreenUtil()
-                                    .setSp(50)),
-                            textAlign: TextAlign.center,
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
                           ),
                         ),
-                      )
-                    ],
-                  ),
-                )
-              ],
-            )),
-        floatingActionButton: FloatingActionButton.extended(
-          onPressed: () => _redirecionarPagina(),
-          label: Text("Responder novamente"),
-          backgroundColor: Constantes.ICON_COLOR,
-          icon: Icon(MdiIcons.rotate3d),
-          elevation: 10,
-          hoverElevation: 5,
-          foregroundColor: Colors.white,
-        )));
+                        Padding(
+                          padding: EdgeInsets.only(top: 20),
+                          child: SizedBox(
+                            child: Image.asset(PerfilHelper.getImagem(perfil),
+                                height: MediaQuery.of(context).size.height *
+                                    (Perfil.analista == perfil ? 0.22 : 0.3)),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: 20, left: 20, right: 20),
+                          child: Center(
+                            child: Text(
+                              PerfilHelper.getDescricao(perfil),
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: ScreenUtil()
+                                      .setSp(50)),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              )),
+          floatingActionButton: FloatingActionButton.extended(
+            onPressed: () => _redirecionarPagina(),
+            label: Text("Responder novamente"),
+            backgroundColor: Constantes.ICON_COLOR,
+            icon: Icon(MdiIcons.rotate3d),
+            elevation: 10,
+            hoverElevation: 5,
+            foregroundColor: Colors.white,
+          )),
+        ));
   }
 
   _redirecionarPagina() {
@@ -98,4 +101,11 @@ class VisualizarPerfilState extends State<VisualizarPerfilPage> {
         MaterialPageRoute(builder: (context) => PaginaInicialPage()),
         (page) => false);
   }
+
+   Future<bool>_onBackPressed(){
+    return Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (context) => PaginaInicialPage()),
+        (page) => false) ??
+      false;
+      }
 }
