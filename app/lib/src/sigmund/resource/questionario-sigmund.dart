@@ -1,6 +1,7 @@
 import 'package:app/src/sigmund/resource/questionario-disc.dart';
 
 class QuestionarioSigmund{
+  //12 questões
   //3,4,5,10,11,12,13,14,18,21,22,23
   final questionario =[
     QuestionarioDisc().questionario[3],
