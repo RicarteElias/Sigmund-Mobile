@@ -13,6 +13,7 @@ import 'package:app/src/sigmund/view/perfil/visualizar-perfil-page.dart';
 import 'package:app/src/sigmund/view/quiz/quiz-page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:logger/logger.dart';
 
 class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin {
   final GlobalKey<AnimatedListState> _listKey = GlobalKey();
@@ -40,6 +41,8 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin {
 
   List<String> _respostas = List<String>();//lista com as respostas
 
+  Logger logger = Logger();
+
   //Construtor
    QuizState({this.projeto,this.tipoQuiz}){
      if(tipoQuiz==TipoQuiz.sigmund){
@@ -55,6 +58,9 @@ class QuizState extends State<QuizPage> with SingleTickerProviderStateMixin {
     _listaAnimada =  _questionario[0]['respostas'];
     _novasRespostas =  _questionario[1]['respostas'];
     super.initState();
+
+    logger.wtf(_questionario);
+  
   }
 
   @override
